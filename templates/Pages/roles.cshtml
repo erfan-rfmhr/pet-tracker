@@ -1,0 +1,291 @@
+﻿@page
+@model IBT.Pages.rolesModel
+@{
+}
+<div id="page-content">
+    <div class="row justify-content-center">
+        <!-- BEGIN BREADCRUMB -->
+        <div class="col-md-12">
+            <div class="breadcrumb-box border shadow">
+                <ul class="breadcrumb">
+                    <li><a href="blank.html">Roles</a></li>
+                    <!--<li><a href="#">page</a></li>
+                    <li class="active">root2</li>-->
+                </ul>
+                <div class="breadcrumb-right">
+                    <span class="dateToday">
+                        Fri, 26 Aug 2022
+                    </span>
+
+                    <i class="icon-calendar"></i>
+                </div><!-- /.breadcrumb-right -->
+            </div><!-- /.breadcrumb-box -->
+        </div><!-- /.col-md-12 -->
+        <!-- END BREADCRUMB -->
+
+
+
+        <div class="col-lg-6 col-12">
+            <div class="portlet box border shadow">
+                <div class="portlet-heading">
+                    <div class="portlet-title">
+                        <h3 class="title">
+                            <i class="icon-frane"></i>
+                            Edit Roles
+                        </h3>
+                    </div><!-- /.portlet-title -->
+                    <div class="buttons-box">
+
+
+
+
+                    </div><!-- /.buttons-box -->
+                </div><!-- /.portlet-heading -->
+                <div class="portlet-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+
+                                    <th>Role Name</th>
+                                    <th>Add</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Admin</td>
+                                    <td><input id="chkAdd1" type="checkbox"></td>
+                                    <td><input id="chkEdit1" type="checkbox"></td>
+                                    <td><input id="chkDelete1" type="checkbox"></td>
+                                </tr>
+                                <tr>
+
+                                    <td>Supervisor</td>
+                                    <td><input id="chkAdd2" type="checkbox"></td>
+                                    <td><input id="chkEdit2" type="checkbox"></td>
+                                    <td><input id="chkDelete2" type="checkbox"></td>
+                                </tr>
+                                <tr>
+                                    <td>User</td>
+                                    <td><input id="chkAdd3" type="checkbox"></td>
+                                    <td><input id="chkEdit3" type="checkbox"></td>
+                                    <td><input id="chkDelete3" type="checkbox"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div><!-- /.table-responsive -->
+
+                    <hr>
+                    <div class="form-actions text-center">
+                        <button id="btnSave1" type="button" class="btn btn-success btn-curve">
+                            <i class="icon-check"></i>
+                            Confrim
+                        </button>
+                       
+                    </div>
+                </div><!-- /.portlet-body -->
+            </div><!-- /.portlet -->
+        </div>
+
+    </div><!-- /.row -->
+</div><!-- /#page-content -->
+@section Scripts
+{
+    <script>
+
+
+
+
+
+        document.getElementById("rolesPage").classList.add("current");
+
+
+        $("#btnSave1").click(function () {
+
+
+         
+            $("#btnSave1").prop('disabled', true);
+
+
+            var dd = {
+
+                canAdd1: $('#chk' + "Add1").is(":checked"),
+                canAdd2: $('#chk' + "Add2").is(":checked"),
+                canAdd2: $('#chk' + "Add3").is(":checked"),
+
+                canEdit1: $('#chk' + "Edit1").is(":checked"),
+                canEdit2: $('#chk' + "Edit2").is(":checked"),
+                canEdit2: $('#chk' + "Edit3").is(":checked"),
+
+                canDelete1: $('#chk' + "Delete1").is(":checked"),
+                canDelete2: $('#chk' + "Delete2").is(":checked"),
+                canDelete2: $('#chk' + "Delete3").is(":checked"),
+
+
+
+
+            };
+            Crud_Sec1($('input:hidden[name="__RequestVerificationToken"]').val(), dd);
+
+
+
+
+
+
+
+
+        });
+
+        getData_Edit($('input:hidden[name="__RequestVerificationToken"]').val());
+
+        function Crud_Sec1(mToken, mData) {
+
+            $.ajax({
+                type: "POST",
+                async: true,
+                url: "/roles?handler=Crud_Sec1",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        mToken);
+
+                },
+                data: mData,
+                success: function (response) {
+
+
+
+                    if (response.res) {
+                        //alert(response.Id);
+
+
+
+                        swal({
+                            type: 'success',
+                            title: 'Success',
+                            text: 'Changes saved successfully',
+                            timer: 6000
+                        }).catch(swal.noop);
+
+
+                        $("#btnSave1").prop('disabled', false);
+
+                    }
+
+                    else {
+
+
+                        //alert("Y");
+                        swal({
+                            type: 'error',
+                            title: 'Error',
+                            text: response.msg,
+                            timer: 6000
+                        }).catch(swal.noop);
+                        $("#btnSave1").prop('disabled', false);
+
+                    }
+
+
+
+                },
+                failure: function (response) {
+                    swal({
+                        type: 'error',
+                        title: 'error',
+                        text: 'error',
+                        timer: 6000
+                    }).catch(swal.noop);
+                    $("#btnSave1").prop('disabled', false);
+
+                    //alert(response.responseText);
+                },
+                error: function (response) {
+
+                    swal({
+                        type: 'error',
+                        title: 'error',
+                        text: 'error',
+                        timer: 6000
+                    }).catch(swal.noop);
+                    $("#btnSave1").prop('disabled', false);
+                }
+            });
+        }
+
+        function getData_Edit(mToken) {
+
+            $.ajax({
+                type: "POST",
+                async: true,
+                url: "/roles?handler=MyPatientData",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        mToken);
+
+                },
+               /* data: mData,*/
+                success: function (response) {
+
+                    let mdata = response.user;
+
+                   
+                    //alert(mdata.canAdd1);
+                    //$('#chkAdd1').iCheck(mdata.canAdd1?'check':'uncheck');
+                    //$('input:checkbox').iCheck('update');
+
+                    $('#chk' + "Add1").iCheck(mdata.canAdd1 ? 'check' : 'uncheck');
+                    $('#chk' + "Add2").iCheck(mdata.canAdd2 ? 'check' : 'uncheck');
+                    $('#chk' + "Add3").iCheck(mdata.canAdd3 ? 'check' : 'uncheck');
+
+                    $('#chk' + "Edit1").iCheck(mdata.canEdit1 ? 'check' : 'uncheck');
+                    $('#chk' + "Edit2").iCheck(mdata.canEdit2 ? 'check' : 'uncheck');
+                    $('#chk' + "Edit3").iCheck(mdata.canEdit3 ? 'check' : 'uncheck');
+
+                    $('#chk' + "Delete1").iCheck(mdata.canDelete1 ? 'check' : 'uncheck');
+                    $('#chk' + "Delete2").iCheck(mdata.canDelete2 ? 'check' : 'uncheck');
+                    $('#chk' + "Delete3").iCheck(mdata.canDelete3 ? 'check' : 'uncheck');
+
+                  
+                    $('input:checkbox').iCheck('update');
+
+                },
+                failure: function (response) {
+                    swal({
+                        type: 'error',
+                        title: 'error',
+                        text: 'error',
+                        timer: 2000
+                    }).catch(swal.noop);
+
+                    //alert(response.responseText);
+                },
+                error: function (response) {
+
+                    swal({
+                        type: 'error',
+                        title: 'error',
+                        text: 'error',
+                        timer: 2000
+                    }).catch(swal.noop);
+                }
+            });
+        }
+
+        function test() {
+            swal({
+                type: 'success',
+                title: 'congratulations',
+                text: 'your changes have been saved successfully.',
+                timer: 2000
+            }).catch(swal.noop);
+            return false;
+        }
+
+
+
+    </script>
+}

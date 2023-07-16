@@ -1,0 +1,401 @@
+﻿<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr" class="ltr">
+<head>
+    <title>Integrity Building Testing</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Integrity Building Testing ">
+    <meta name="keywords" content="Integrity Building Testing">
+    <meta name="fontiran.com:license" content="NE29X">
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}">
+
+
+    <!-- BEGIN CSS -->
+    <link href="{% static 'assets/plugins/bootstrap/bootstrap5/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/metisMenu/dist/metisMenu.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/simple-line-icons/css/simple-line-icons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css' %}"
+          rel="stylesheet">
+    <link href="{% static 'assets/plugins/switchery/dist/switchery.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/paper-ripple/dist/paper-ripple.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/iCheck/skins/square/_all.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/colors.css' %}" rel="stylesheet">
+
+    <!-- END CSS -->
+    <!-- BEGIN PAGE CSS -->
+    <link href="{% static 'assets/plugins/stepy/lib/jquery.stepy.css' %}" rel="stylesheet">
+    <!-- END PAGE CSS -->
+</head>
+
+<body>
+
+<!-- BEGIN LOEADING -->
+<div id="loader">
+    <div class="spinner"></div>
+</div><!-- /loader -->
+<!-- END LOEADING -->
+<!-- BEGIN HEADER -->
+<div class="navbar navbar-fixed-top" id="main-navbar">
+    <div class="header-left">
+        <a href="#" class="logo-con">
+            <img src="{% static 'assets/images/IBT.png' %}" class="img-responsive center-block" alt="logo">
+        </a>
+    </div><!-- /.header-left -->
+    <div class="header-right">
+        <div class="top-bar">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a href="#" class="btn" id="toggle-sidebar">
+                        <span class="menu"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="btn open" id="toggle-sidebar-top">
+                        <i class="icon-user-following"></i>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-left navbar-m_center">
+                <li>
+                    <div class="logo-con">
+                        <img src="{% static 'assets/images/IBT1.png' %}"
+                             class="dark-logo center-block img-responsive img_main_center" alt="logo">
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="btn" id="toggle-fullscreen">
+                        <i class="icon-size-fullscreen"></i>
+                    </a>
+                </li>
+                <li>
+                    <img src="{% static 'assets/images/logo.png' %}" class="dark-logo center-block img-responsive"
+                         alt="logo">
+                </li>
+
+                <li class="dropdown dropdown-user">
+                    <a href="#" class="dropdown-toggle dropdown-hover" data-bs-toggle="dropdown">
+
+                        <img id="imgProfile1"
+                             src="{% static 'assets/images/user/128.png' %}"
+                             alt="profile image" class="img-circle img-responsive img_profile_Right VDimgUser">
+
+                        <img src="{% static 'assets/images/user/usrDef.png' %}" alt="profile image"
+                             class="img-circle img-responsive">
+                        <span class="VDUser">User Name </span>
+                        <i class="icon-arrow-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="profile">
+                                <i class="icon-note"></i>
+                                Edit Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-key"></i>
+                                Change Password
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+
+                        <li class="divider"></li>
+                        <li>
+
+                            <a href="#" class="cursor-pointer" onclick="mLogout()">
+                                <i class="icon-power"></i>
+                                Sign Out
+                            </a>
+
+
+                        </li>
+                    </ul>
+                </li>
+            </ul><!-- /.navbar-right -->
+        </div><!-- /.top-bar -->
+    </div><!-- /.header-right -->
+</div><!-- /.navbar -->
+<!-- END HEADER -->
+<!-- BEGIN WRAPPER -->
+<div id="wrapper">
+
+    <!-- BEGIN SIDEBAR -->
+    <div id="sidebar" class="card sticky-top">
+        <div class="sidebar-top">
+
+            <div class="user-box">
+                <a href="#">
+                    <img id="imgProfile2" src="{% static 'assets/images/user/128.png' %}" alt="profile image"
+                         class="img-circle img-responsive img_profile_Menu VDimgUser">
+                </a>
+                <div class="user-details">
+                    <h4 class="VDUser"></h4>
+                    <p class="role VDUserName"></p>
+                    <!-- /dropdown -->
+                </div><!-- /.user-details -->
+            </div><!-- /.user-box -->
+        </div><!-- /.sidebar-top -->
+        <div class="side-menu-container">
+            <ul class="metismenu" id="side-menu">
+
+                <li>
+                    <a href="#" class="cursor-pointer" onclick="NoExistWebSite()">
+                        <i class="icon-globe"></i>
+                        <span>Web Site</span>
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="dashboard" class="" id="DashboardPage">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+
+                </li>
+
+
+                <li>
+                    <a href="{% url 'petowners_list' %}" class="" id="CustomersPage">
+                        <i class="fa fa-home"></i>
+                        <span>Pet owners</span>
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="buildings" class="" id="BuildingsPage">
+                        <i class="fa fa-building"></i>
+                        <span>Buildings</span>
+                    </a>
+
+                </li>
+
+
+                <li>
+                    <a href="Records" class="" id="ReportsPage">
+                        <i class="icon-chart"></i>
+                        <span>Reports</span>
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="online_records" class="" id="OnlineReportsPage">
+                        <i class="fa fa-database"></i>
+                        <span>Online data</span>
+                    </a>
+
+                </li>
+
+
+                <li>
+                    <a href="Charts" class="" id="chartsPage">
+                        <i class="fa fa-line-chart"></i>
+                        <span>Charts</span>
+                    </a>
+
+                </li>
+
+
+                <li>
+                    <a href="users" class="" id="usersPage">
+                        <i class="fa fa-users"></i>
+                        <span>IBT Staff</span>
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="profile" class="" id="usersMyRofile">
+                        <i class="icon-note fw-bolder"></i>
+                        <span>Profile</span>
+                    </a>
+
+                </li>
+
+
+                <li>
+                    <a href="files/user_manual.pdf" target="_blank" class="" id="usersPage">
+                        <i class="fa fa-file-text-o"></i>
+                        <span>User Manual</span>
+                    </a>
+
+                </li>
+
+
+                <li>
+                    <a href="roles" class="" id="rolesPage">
+                        <i class="fa  fa-gears"></i>
+                        <span>Roles</span>
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="#" class="cursor-pointer" onclick="mLogout()">
+                        <i class="icon-power fw-bolder"></i>
+                        Sign Out
+                    </a>
+                </li>
+
+
+                <!--<li>
+<a href="#" class="">-->
+                <!--<i class="icon-envelope"></i>-->
+                <!--<i class="fa fa-envelope"></i>
+        <span>Contact US </span>
+    </a>
+
+</li>-->
+
+            </ul><!-- /#side-menu -->
+        </div><!-- /.side-menu-container -->
+    </div><!-- /#sidebar -->
+    <!-- END SIDEBAR -->
+    <!-- BEGIN PAGE CONTENT -->
+    {% csrf_token %}
+    {% block PageContent %}
+    {% endblock PageContent %}
+    <!-- END PAGE CONTENT -->
+
+
+</div><!-- /#wrapper -->
+<!-- END WRAPPER -->
+
+<div class="row footer-container">
+    <div class="col-md-12">
+        <div class="copyright">
+            <p class="float-start">
+                All rights reserved
+            </p>
+            <p class="float-end rtl tahoma">
+                <span>©</span>
+                <a href="#" target="_blank">IBT</a>
+            </p>
+
+
+        </div><!-- /.copyright -->
+    </div><!-- /.col-md-12 -->
+</div><!-- /.row -->
+<!-- BEGIN SETTING -->
+<div class="settings d-none d-sm-block">
+    <a href="#" class="btn  d-none" id="toggle-setting">
+        <i class="icon-settings"></i>
+    </a>
+    <h3 class="text-center">settings</h3>
+
+    <div class="fix-header-box">
+        <p class="h6">
+
+                <span class="pull-right">
+                    <input type="checkbox" class="fix-header-switch normal" checked>
+                </span>
+        </p>
+    </div><!-- /.fix-header-box -->
+    <hr class="light">
+    <div class="toggle-sidebar-box">
+
+
+            <span class="pull-right">
+                <input type="checkbox" class="toggle-sidebar-switch normal">
+            </span>
+
+    </div><!-- /.toggle-sidebar-box -->
+    <hr class="light">
+    <div class="toggle-sidebar-box">
+        <p class="h6">
+
+                <span class="pull-right">
+                    <input type="checkbox" class="creative-sidebar-switch normal">
+                </span>
+        </p>
+    </div><!-- /.toggle-sidebar-box -->
+    <hr class="light">
+    <div class="theme-colors">
+
+    </div><!-- /.theme-colors -->
+
+</div><!-- /.settings -->
+<!-- END SETTING -->
+<!-- BEGIN CODE MODAL -->
+<div class="modal fade" id="code-modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn btn-default btn-round btn-icon float-start" id="btn-copy"><i
+                        class="fa fa-copy"></i></button>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body"></div>
+        </div> <!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div> <!-- /.modal -->
+<!-- END CODE MODAL -->
+
+<!-- BEGIN JS -->
+<script src="{% static 'assets/plugins/jquery/dist/jquery-3.1.0.js' %}"></script>
+<script src="{% static 'assets/plugins/bootstrap/bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/plugins/metisMenu/dist/metisMenu.min.js' %}"></script>
+<script src="{% static 'assets/plugins/paper-ripple/dist/PaperRipple.min.js' %}"></script>
+<script src="{% static 'assets/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+<script src="{% static 'assets/plugins/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+<script src="{% static 'assets/plugins/screenfull/dist/screenfull.min.js' %}"></script>
+<script src="{% static 'assets/plugins/iCheck/icheck.min.js' %}"></script>
+<script src="{% static 'assets/plugins/switchery/dist/switchery.js' %}"></script>
+<script src="{% static 'assets/js/core.js' %}"></script>
+
+<!-- BEGIN PAGE JAVASCRIPT -->
+<script src="{% static 'assets/plugins/stepy/lib/jquery.stepy.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/wizard.js' %}"></script>
+<!-- END PAGE JAVASCRIPT -->
+<script>
+
+        function NoExistWebSite() {
+            swal({
+                type: 'error',
+                title: 'Information',
+                text: "The website is currently unavailable",
+                timer: 6000
+            }).catch(swal.noop);
+
+            return false;
+        }
+      
+
+
+
+
+</script>
+
+<style>
+
+    .img_profile_Right {
+        max-width: 48px;
+        min-height: 48px;
+    }
+
+    .img_profile_Menu {
+        max-width: 128px;
+    }
+
+    /*   ::selection {
+           background-color: initial;
+           color: initial;
+       }
+*/
+
+</style>
+
+
+</body>
+</html>

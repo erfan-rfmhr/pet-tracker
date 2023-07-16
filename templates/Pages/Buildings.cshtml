@@ -1,0 +1,601 @@
+﻿@page
+
+@model BuildingsModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div id="page-content">
+    @*<div id="map-marker" class="googlemap-box"></div>*@
+
+    <div class="row">
+        <!-- BEGIN BREADCRUMB -->
+        <div class="col-md-12">
+            <div class="breadcrumb-box border shadow">
+                <ul class="breadcrumb">
+                    <li><a id="ttlPage" href="#">Buildings</a></li>
+                </ul>
+                <div class="breadcrumb-right">
+
+                    <span class="dateToday">
+                        Fri, 26 Aug 2022
+                    </span>
+                    <i class="icon-calendar"></i>
+                </div><!-- /.breadcrumb-right -->
+            </div><!-- /.breadcrumb-box -->
+        </div><!-- /.col-md-12 -->
+        <!-- END BREADCRUMB -->
+    </div>
+
+    <div id="gridUser" class="row justify-content-center">
+
+
+
+
+
+
+        <div class=" col-lg-12  col-12">
+            <div class="portlet box border shadow">
+
+                <div class="portlet-body">
+
+                    <div i class="table-responsive">
+
+                        @*<button id="btnNewPatient" type="button" class="btn btn-sm btn-info btn-curve">
+                                <i class="icon-plus"></i>
+                                New
+                            </button>*@
+                        <table id="buildingDatatable" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>CustomerId</th>
+                                    <th>Customer Name</th>
+                                    <th>Building Name</th>
+                                    <th style="width:150px;">Address</th>
+                                    <th>Location</th>
+                                    <th>Description</th>
+                                    <th>Image</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <div id="recordDetail" class="row justify-content-center">
+
+
+
+        <div class="col-lg-8 col-12">
+            <div class="portlet box border shadow">
+
+                <div class="portlet-body">
+
+
+
+
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab23">
+                                    <fieldset>
+                                        <input type="hidden" id="hfId" />
+                                        <input type="hidden" id="hfCustomerId" />
+                                        <form id="form1" action="users" method="POST" role="form">
+
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Customer Name</label>
+                                                        <div class="input-group">
+                                                            <select class="form-control select2 curve" id="cmbCustomerName">
+
+                                                                @{
+
+                                                                    foreach (MyCustomer m in Model.myCoustomers)
+                                                                    {
+
+                                                                        <option value=@m.Id>@m.UserName</option>
+                                                                    }
+
+                                                                }
+
+                                                                @*<option value="1">tapsi</option>
+                                                                    <option value="2">snap</option>
+                                                                    <option value="3">divar</option>
+                                                                    <option value="4">digikala</option>*@
+                                                            </select>
+                                                        </div><!-- /.input-group -->
+                                                    </div><!-- /.form-group -->
+                                                </div>
+
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Building Name</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Building Name" id="txtBuildingName">
+                                                        </div><!-- /.input-group -->
+                                                    </div><!-- /.form-group -->
+                                                </div>
+
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Address</label>
+                                                        <div class="input-group">
+
+                                                            <textarea type="text" placeholder="Address" id="txtAddress" class="form-control" style="resize:none"></textarea>
+                                                        </div><!-- /.input-group -->
+                                                    </div><!-- /.form-group -->
+                                                </div>
+
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Description</label>
+                                                        <div class="input-group">
+                                                            <textarea type="text" placeholder="Description" id="txtDescription" class="form-control" style="resize:none"></textarea>
+                                                        </div><!-- /.input-group -->
+                                                    </div><!-- /.form-group -->
+                                                </div>
+
+
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Location</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Location" id="txtLocation">
+                                                        </div><!-- /.input-group -->
+                                                    </div><!-- /.form-group -->
+                                                </div>
+
+
+                                                <div class=" col-md-6  col-12">
+                                                    <div class="form-group">
+                                                        <label>Contract Date</label>
+                                                        <div class="input-group">
+
+                                                            <span class="input-group-addon" onclick="show_Picker3()">
+                                                                <i class="icon-calendar"></i>
+                                                            </span>
+                                                            <input id="txtContractDate" type="date" min="2022-01-01" max="2099-12-31" class="form-control" placeholder="Contract Date" onfocus="this.showPicker()" required>
+                                                        </div><!-- /.input-group -->
+                                                    </div><!-- /.form-group -->
+                                                </div>
+
+
+
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Contract No</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Contract No" id="txtContractNo">
+                                                        </div><!-- /.input-group -->
+                                                    </div><!-- /.form-group -->
+                                                </div>
+
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Contract Subject</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Contract Subject" id="txtContractSubject">
+                                                        </div><!-- /.input-group -->
+                                                    </div><!-- /.form-group -->
+                                                </div>
+
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Image</label>
+                                                        <div class="input-group" style="display:none">
+                                                            <input type="text" class="form-control" placeholder="img" id="txtimg">
+                                                        </div><!-- /.input-group -->
+
+                                                        <div class="input-group">
+
+                                                            <div class="row">
+                                                                <div class="col-md-8 col-12 ">
+                                                                    <button style="min-width:120px" id="upfile1" type="button" class="text-success btn btn-info  btn-sm me-2  " onclick="openMyFileDialog('fileUpl');" style="cursor:pointer;">
+                                                                        <i class="fa fa-upload text-primary"></i>
+
+                                                                        Choose File
+                                                                    </button>
+                                                                    <input class="FuncUploadFiles" style="display:none" id=fileUpl accept="image/*" name="uploadF2" type="file" />
+
+
+                                                                    <progress id=fileProgress style="display: none"></progress>
+
+                                                                </div>
+
+                                                                <div class="col-md-4 col-12 ">
+
+                                                                    <img id=imgP style="max-width:80px;min-width:80px;height:auto;" />
+                                                                </div>
+
+                                                            </div>
+
+
+
+
+
+                                                        </div>
+
+
+
+
+                                                    </div><!-- /.form-group -->
+                                                </div>
+
+
+
+
+                                                <div class="form-actions text-center mt-3">
+
+
+                                                    <button id="btnSave1" type="button" class="btn btn-success btn-curve">
+                                                        <i class="icon-check"></i>
+                                                        Confrim
+                                                    </button>
+                                                    <button id="btnCancel1" type="button" class="btn btn-danger btn-curve ms-2">
+                                                        Cancel
+                                                        <i class="icon-close"></i>
+                                                    </button>
+                                                </div>
+
+
+                                            </div>
+                                        </form>
+                                    </fieldset>
+                                </div><!-- /.tab-pane -->
+
+
+                            </div><!-- /.tab-content -->
+                        </div><!-- /.col-9 -->
+                    </div><!-- /.row -->
+
+
+
+                </div><!-- /.portlet-body -->
+            </div><!-- /.portlet -->
+        </div><!-- /.col-lg-8 -->
+
+
+
+
+        <br />
+
+        <div class="col-lg-8 col-12" id="DivSensorDt">
+            <div class="portlet box border shadow">
+                <div class="portlet-body">
+
+
+                    <div class="table-responsive">
+                        <table id="mySensor" class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+
+                                    <th>Id</th>
+                                    <th>buildingId</th>
+                                    <th>CustomerId</th>
+                                    <th>Sensor</th>
+
+                                    <th>SesnsorType</th>
+
+
+                                    <th>Serial</th>
+                                    <th>AliasName</th>
+                                    <th>Lower Limit</th>
+                                    <th>Upper Limit</th>
+                                    <th>Actions</th>
+
+
+
+                                </tr>
+                            </thead>
+
+                        </table>
+
+
+                    </div><!-- /.table-responsive -->
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="SensorModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    <h4 id="SensorModalTitle" class="modal-title">New Sensor</h4>
+                </div><!-- /.modal-header -->
+                <div class="modal-body">
+                    <input type="hidden" id="hfSensorId" />
+
+                    <div class="row">
+
+
+                        @*<div class="col-md-6 offset-md-3">*@
+                        <div class="col-md-12 col-12">
+
+                            <div class="form-group">
+                                <label>Sensor</label>
+                                <div class="input-group">
+                                    <select class="form-control select2 curve" id="cmbSensorT" style="width:100% !important">
+                                        <option value="1">Temprature</option>
+                                        <option value="2">Torsion</option>
+                                        <option value="3">Failure</option>
+                                        <option value="4">Wind Speed</option>
+                                        <option value="5">Pressure</option>
+                                        <option value="6">Strain</option>
+                                        <option value="7">Bending</option>
+                                        <option value="8">Camera</option>
+                                    </select>
+                                </div><!-- /.input-group -->
+                            </div><!-- /.form-group -->
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-md-6 col-12">
+                            <div class="form-group">
+                                <label>Serial</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Serial" id="txtSerial" required>
+                                </div><!-- /.input-group -->
+                            </div><!-- /.form-group -->
+                        </div>
+
+                        <div class="col-md-6 col-12">
+                            <div class="form-group">
+                                <label>Alias Name</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Alias Name" id="txtAliasName" required>
+                                </div><!-- /.input-group -->
+                            </div><!-- /.form-group -->
+                        </div>
+
+                        <div class="col-md-6 col-12">
+                            <div class="form-group">
+                                <label>Lower Limit</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="Lower Limit" id="txtLowLimit">
+                                </div><!-- /.input-group -->
+                            </div><!-- /.form-group -->
+                        </div>
+
+                        <div class="col-md-6 col-12">
+                            <div class="form-group">
+                                <label>Upper Limit</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="Upper Limit" id="txtHighLimit">
+                                </div><!-- /.input-group -->
+                            </div><!-- /.form-group -->
+                        </div>
+
+                    </div>
+                </div><!-- /.modal-body -->
+                <div class="modal-footer">
+
+
+                    <button id="btnSensorSave" type="button" class="btn btn-success btn-curve">
+                        <i class="icon-check"></i>
+                        Confrim
+                    </button>
+                    <button id="btnSensorCancel" type="button" class="btn btn-danger btn-curve ms-2" data-bs-dismiss="modal">
+                        Cancel
+                        <i class="icon-close"></i>
+                    </button>
+
+
+                </div><!-- /.modal-footer -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+    <div id="recordModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    <h4 id="recordModalTitle" class="modal-title">New Sensor</h4>
+                </div><!-- /.modal-header -->
+                <div class="modal-body">
+                    <input type="hidden" id="hfSensorId" />
+
+                    <div class="row">
+
+
+                        @*  <div class="w-100 d-none d-md-block"></div>*@
+                        <div class="col-md-6 col-12">
+                            <div class="form-group">
+                                <label>date</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" onclick="show_Picker4()">
+                                        <i class="icon-calendar"></i>
+                                    </span>
+
+                                    <input id="txtdate" type="date" min="2022-01-01" max="2099-12-31" class="form-control" placeholder="date" onfocus="this.showPicker()" required>
+                                </div><!-- /.input-group -->
+                            </div><!-- /.form-group -->
+                        </div>
+
+                        <div class="col-md-6 col-12">
+                            <div class="form-group">
+                                <label>time</label>
+                                <div class="input-group">
+                                    <input type="time" class="form-control" placeholder="time" id="txttime" required>
+                                </div><!-- /.input-group -->
+                            </div><!-- /.form-group -->
+                        </div>
+
+                        <div class="col-md-6 col-12">
+                            <div class="form-group">
+                                <label>value</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="value" id="txtvalue">
+                                </div><!-- /.input-group -->
+                            </div><!-- /.form-group -->
+                        </div>
+
+
+
+                    </div>
+                </div><!-- /.modal-body -->
+                <div class="modal-footer">
+
+
+                    <button id="btnRecordSave" type="button" class="btn btn-success btn-curve">
+                        <i class="icon-check"></i>
+                        Save
+                    </button>
+                    <button id="btnRecordCancel" type="button" class="btn btn-danger btn-curve ms-2" data-bs-dismiss="modal">
+                        Cancel
+                        <i class="icon-close"></i>
+                    </button>
+
+
+                </div><!-- /.modal-footer -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div id="MapModal" class="modal  fade" role="dialog" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    <h4 id="MapModalTitle" class="modal-title">New Sensor</h4>
+                </div><!-- /.modal-header -->
+                <div class="modal-body">
+
+                    @*<div class="container d-flex align-items-center justify-content-center">
+                        <div id="mapDiv" style="width: 400px; height: 500px"></div>
+                    </div>*@
+
+                    <div class="row">
+
+
+                        @*  <div class="w-100 d-none d-md-block"></div>*@
+                        <div class="col-12">
+
+                                   @*<div id="mapDiv" style="min-width: 800px; min-height: 500px"></div>*@
+                            <div id="mapDiv" style="min-width: 200px; min-height: 75vh" ></div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div><!-- /.modal-body -->
+                <div class="modal-footer">
+
+
+                 
+                    @*<button id="btnRecordCancel" type="button" class="btn btn-danger btn-curve ms-2" data-bs-dismiss="modal">
+                        Cancel
+                        <i class="icon-close"></i>
+                    </button>*@
+
+
+                </div><!-- /.modal-footer -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+   @*<div id="mapCon" class="container d-flex align-items-center justify-content-center">
+                        <div id="mapDiv" style="width: 800px; height: 500px"></div>
+                    </div>*@
+
+
+</div>
+<!-- /#page-content -->
+
+<style>
+    .error, .has-error + .help-block, .has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label {
+        color: #f55145;
+    }
+</style>
+
+<link href="~/assets/plugins/data-table/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/assets/plugins/data-table/css/buttons.dataTables.min.css" rel="stylesheet" />
+<link href="~/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet">
+<link href="~/assets/plugins/data-table/DataTables-1.10.16/css/rowGroup.dataTables.min.css" rel="stylesheet" />
+@section Scripts
+{
+    <script src="~/assets/plugins/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/assets/plugins/select2/dist/js/i18n/fa.js"></script>
+    <script src="~/assets/js/pages/select2.js"></script>
+
+    <script src="~/assets/plugins/data-table/jquery.dataTables.min.js"></script>
+    <script src="~/assets/plugins/data-table/js/dataTables.buttons.min.js"></script>
+    <script src="~/assets/js/buildingDatatable.js?v21"></script>
+
+
+    <script src="~/assets/plugins/data-table/DataTables-1.10.16/js/dataTables.rowGroup.min.js"></script>
+
+    <script src="~/assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/assets/js/pages/validation.js"></script>
+    @*<script src="~/assets/js/pages/googlemap.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzucApaIKUvwnFF_nj4Aw4Iiok6LnlLAM&callback=initMap" async defer></script>*@
+
+
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+
+
+    
+    <script>
+
+
+
+        //initMap();
+
+        function openMyFileDialog(inputId) {
+            $("#" + inputId).click();
+            return false;
+        }
+
+
+
+    </script>
+
+    <style>
+
+        tr.group {
+            /*    background-color: #91d2b3 !important;
+        text-align:center;*/
+        }
+
+        td.group {
+            border-bottom: solid 2px #1082b7;
+            color: #239b23 !important;
+        }
+
+        .btn-primary2 {
+            background-color: #14B9D6 !important;
+            border-color: #14B9D6 !important;
+            color: white !important;
+        }
+    </style>
+}
