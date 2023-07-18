@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .forms import PetOwnerForm
+from .forms import PetOwnerCreationForm
 from .models import PetOwner
 
 
@@ -13,9 +13,6 @@ class PetOwnersList(generic.ListView):
 
 class PetOwnerCreateView(generic.CreateView):
     model = PetOwner
-    form_class = PetOwnerForm
+    form_class = PetOwnerCreationForm
     template_name = 'Pages/petowner_new.html'
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+    success_url = reverse_lazy('petowners_list')
