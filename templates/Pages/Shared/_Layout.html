@@ -83,7 +83,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
+                            {% if user.is_staff %}
                             <a href="{% url 'staff_profile' user.id %}">
+                            {% endif %}
                                 <i class="icon-note"></i>
                                 Edit Profile
                             </a>
@@ -153,9 +155,11 @@
 
 
                 <li>
-                    <a href="{% url 'petowners_list' %}" class="" id="CustomersPage">
+                    <a href="{% url 'index' %}" class="" id="CustomersPage">
                         <i class="fa fa-home"></i>
+                        {% if user.is_staff %}
                         <span>Pet owners</span>
+                        {% endif %}
                     </a>
 
                 </li>
