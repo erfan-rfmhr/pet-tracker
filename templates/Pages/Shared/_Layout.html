@@ -78,7 +78,7 @@
                              src="{% static 'assets/images/user/128.png' %}"
                              alt="profile image" class="img-circle img-responsive img_profile_Right VDimgUser">
 
-                        <span class="VDUser">{{ user.username }}User Name </span>
+                        <span class="VDUser">{{ user.username }}</span>
                         <i class="icon-arrow-down"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -251,7 +251,6 @@
     </div><!-- /#sidebar -->
     <!-- END SIDEBAR -->
     <!-- BEGIN PAGE CONTENT -->
-    {% csrf_token %}
     {% block PageContent %}
     {% endblock PageContent %}
     <!-- END PAGE CONTENT -->
