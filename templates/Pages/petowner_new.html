@@ -25,19 +25,88 @@
 
             <div class=" col-lg-10  col-12">
                 <div class="portlet box border shadow">
-
                     <div class="portlet-body">
-
-                        <div class="table-responsive">
-                            <form method="post">
-                                {% csrf_token %}
-                                <table id="userDatatable"
-                                       class="table table-striped table-bordered dt-responsive nowrap"
-                                       width="100%" cellspacing="0">
-                                    {{ form.as_table }}
-                                </table>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group ">
+                                                <label for="id_login">{{ form.first_name.label_tag }}</label>
+                                                <div class="input-group round">
+                                            <span class="input-group-addon">
+                                                <i class="icon-user"></i>
+                                            </span>
+                                                    {{ form.first_name }}
+                                                </div><!-- /.input-group -->
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group ">
+                                                <label for="id_login">{{ form.last_name.label_tag }}</label>
+                                                <div class="input-group round">
+                                            <span class="input-group-addon">
+                                                <i class="icon-user"></i>
+                                            </span>
+                                                    {{ form.last_name }}
+                                                </div><!-- /.input-group -->
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group ">
+                                                <label for="id_login">{{ form.phone.label_tag }}</label>
+                                                <div class="input-group round">
+                                            <span class="input-group-addon">
+                                                <i class="icon-phone"></i>
+                                            </span>
+                                                    {{ form.phone }}
+                                                </div><!-- /.input-group -->
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group ">
+                                                <label for="id_login">{{ form.address.label_tag }}</label>
+                                                <div class="input-group round">
+                                            <span class="input-group-addon">
+                                                <i class="icon-location-pin"></i>
+                                            </span>
+                                                    {{ form.address }}
+                                                </div><!-- /.input-group -->
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="id_login">{{ form.username.label_tag }}</label>
+                                                <div class="input-group round">
+                                            <span class="input-group-addon">
+                                                <i class="icon-user"></i>
+                                            </span>
+                                                    {{ form.username }}
+                                                </div><!-- /.input-group -->
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="id_password">{{ form.password.label_tag }}</label>
+                                                <div class="input-group round">
+                                            <span class="input-group-addon">
+                                                <i class="icon-lock"></i>
+                                            </span>
+                                                    {{ form.password }}
+                                                </div><!-- /.input-group -->
+                                            </div><!-- /.form-group -->
+                                        </div>
+                                    </div>
+                                    <button id="btnLogin" class="btn btn-info btn-round" type="submit">
+                                        Submit
+                                    </button>
+                                </form>
+                            </div>
                         </div>
 
                     </div>
