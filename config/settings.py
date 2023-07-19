@@ -129,6 +129,7 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "templates/wwwroot",
+    BASE_DIR / "media",
 ]
 
 MEDIA_URL = 'media/'
