@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'core',
     'petowner',
+    'staff',
 ]
 
 SITE_ID = 1
