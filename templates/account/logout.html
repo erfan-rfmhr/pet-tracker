@@ -1,0 +1,114 @@
+<html lang="en" dir="ltr">
+<head>
+    {% load static %}
+    {% load i18n %}
+    <title>Integrity Building Testing</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Integrity Building Testing ">
+    <meta name="keywords" content="Integrity Building Testing">
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}">
+
+    <!-- BEGIN CSS -->
+    <link href="{% static 'assets/plugins/bootstrap/bootstrap5/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/simple-line-icons/css/simple-line-icons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/paper-ripple/dist/paper-ripple.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/plugins/iCheck/skins/square/_all.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/colors.css' %}" rel="stylesheet">
+    <!-- END CSS -->
+
+
+</head>
+<body class="fix-header active-ripple theme-blue">
+<!-- BEGIN LOEADING -->
+<div id="loader">
+    <div class="spinner"></div>
+</div><!-- /loader -->
+<!-- END LOEADING -->
+<!-- BEGIN WRAPPER -->
+<div class="fixed-modal-bg"></div>
+<!--<a href="#" class="btn btn-info btn-icon btn-round btn-lg" id="toggle-dark-mode">
+    <i class="icon-bulb"></i>
+</a>-->
+<div class="modal-page shadow">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="logo-con m-t-10 m-b-10">
+                    <img src="{% static '' %}assets/images/IBT-LOGO2.png" style="max-width:50%"
+                         class="dark-logo center-block img-responsive" alt="logo">
+
+                </div><!-- /.logo-con -->
+                <h1 class="text-center m-b-20 mt-3 text-white logoTitle">Integrity Building Testing</h1>
+                <h1 class="text-center m-b-20 mt-3 Welcome_h">{% trans "Sign Out" %}</h1>
+                <hr>
+                <div class="form-group">
+                        {% csrf_token %}
+
+                        <p>{% trans 'Are you sure you want to sign out?' %}</p>
+
+                        <form method="post" action="{% url 'account_logout' %}">
+                            {% csrf_token %}
+                            {% if redirect_field_value %}
+                                <input type="hidden" name="{{ redirect_field_name }}"
+                                       value="{{ redirect_field_value }}"/>
+                            {% endif %}
+                            <button class="btn btn-info btn-round btn-block" type="submit">{% trans 'Sign Out' %}</button>
+                        </form>
+                    {# END FORM #}
+                </div>
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div><!-- /.modal-page -->
+<!-- END WRAPPER -->
+<!-- BEGIN JS -->
+<script src="{% static 'assets/plugins/jquery/dist/jquery-3.1.0.js' %}"></script>
+<script src="{% static 'assets/plugins/jquery-migrate/jquery-migrate-1.2.1.min.js' %}"></script>
+<script src="{% static 'assets/plugins/bootstrap/bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/plugins/paper-ripple/dist/PaperRipple.min.js' %}"></script>
+<script src="{% static 'assets/plugins/sweetalert2//dist/sweetalert2.min.js' %}"></script>
+<script src="{% static 'assets/plugins/iCheck/icheck.min.js' %}"></script>
+<script src="{% static 'assets/plugins/iCheck/icheck.min.js' %}"></script>
+<script src="{% static 'assets/plugins/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+<script src="{% static 'assets/js/core.js' %}"></script>
+
+<!-- BEGIN PAGE JAVASCRIPT -->
+<script src="{% static '' %}assets/js/pages/login.js"></script>
+<!-- END PAGE JAVASCRIPT -->
+
+
+<script>
+
+    let date = new Date().toUTCString().slice(0, 16);
+    $(".dateToday").text(date);
+
+
+    $("#btnLogin").click(function () {
+
+        $('#lblErrorL').text("");
+        //if ($('#form').valid()) {
+        //    //window.location.href = "index";
+        //    return false;
+        //}
+    });
+
+</script>
+
+<style>
+
+    .unselectable {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+</style>
+</body>
+
+</html>
