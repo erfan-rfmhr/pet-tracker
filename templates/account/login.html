@@ -48,28 +48,29 @@
 
                     <form method="post">
                         {% csrf_token %}
-                        {% for field in form %}
                             <div class="form-group ">
-                                {{ field.label_tag }}
+                                {{ form.login.label_tag }}
                                 <div class="input-group round">
                                 <span class="input-group-addon">
                                     <i class="icon-user"></i>
                                 </span>
-                                    {{ field }}
+                                    {{ form.login }}
                                 </div><!-- /.input-group -->
                             </div><!-- /.form-group -->
-                        {% endfor %}
-                        {# INPUT GROUP #}
-                        <div class="input-group round">
-                            <div class="form-control" style="background-color:transparent;border:none">
-                                <label class="mt-3 unselectable"><input type="radio" name="LoginType"
-                                                                        value="2">Customer</label>
-                                <label class="mt-3 unselectable ms-5"><input type="radio" checked="checked"
-                                                                             name="LoginType"
-                                                                             value="1">Staff</label>
-                            </div>
-                            {# END INPUT GROUP #}
-                        </div>
+                            <div class="form-group">
+                                {{ form.password.label_tag }}
+                                <div class="input-group round">
+                                <span class="input-group-addon">
+                                    <i class="icon-lock"></i>
+                                </span>
+                                    {{ form.password }}
+                                </div><!-- /.input-group -->
+                            </div><!-- /.form-group -->
+                        <div class="form-group ">
+                                <div class="input-group round">
+                                    {{ form.user_type }}
+                                </div><!-- /.input-group -->
+                            </div><!-- /.form-group -->
                         <button id="btnLogin" class="btn btn-info btn-round btn-block" type="submit"> Login
                         </button>
                     </form>
