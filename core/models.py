@@ -4,4 +4,4 @@ from django.db import models
 
 # Create your models here.
 class CoreUser(AbstractUser):
-    is_customer = models.BooleanField(default=False)
+    is_customer = models.BooleanField(default=True)
