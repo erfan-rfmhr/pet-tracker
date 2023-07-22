@@ -1,14 +1,14 @@
 from django.contrib.auth import get_user_model
-from django.views import generic
 from django.urls import reverse_lazy
+from django.views import generic
 
-from .forms import StaffProfileUpdateForm
+from core.forms import UserProfileUpdateForm
 
 
 class StaffProfileUpdateView(generic.UpdateView):
     template_name = 'account/profile.html'
     queryset = get_user_model().objects.all()
-    form_class = StaffProfileUpdateForm
+    form_class = UserProfileUpdateForm
 
     def get_success_url(self):
         return reverse_lazy('staff_profile', kwargs={'pk': self.kwargs['pk']})
