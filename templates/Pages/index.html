@@ -55,9 +55,9 @@
                                         <td><img src="{% static '' %}{{ user_obj.image }}" alt="user profile image"
                                                  class="img-circle"></td>
                                         <td>
-                                            <button href="#" class="btn btn-sm  DeletT" title="Delete"><i
+                                            <a href="{% url 'petowner_delete' user_obj.user.id %}" class="btn btn-sm  DeletT" title="Delete"><i
                                                     class="fa fa-remove fa-2x text-danger"></i>
-                                            </button>
+                                            </a>
                                             <button class="btn btn-sm  EditT" title="Edit">
                                                 <i class="fa fa-edit fa-2x"></i>
                                             </button>

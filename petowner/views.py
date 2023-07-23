@@ -33,3 +33,9 @@ class PetOwnerCreateAPIView(generics.CreateAPIView):
         user = get_user_model().objects.create_user(username=data['username'], password=data['password'],
                                                     first_name=data['first_name'], last_name=data['last_name'], )
         PetOwner.objects.create(user=user, phone=data['phone'], address=data['address'], )
+
+
+class PetOwnerDeleteView(generic.DeleteView):
+    model = get_user_model()
+    template_name = 'Pages/petowner_delete.html'
+    success_url = reverse_lazy('index')
