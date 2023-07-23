@@ -75,8 +75,12 @@
                                 {{ form.password2 }}
                             </div><!-- /.input-group -->
                         </div><!-- /.form-group -->
+                        {{ form.non_field_errors }}
                         <button class="btn btn-info btn-round btn-block" type="submit"> Sign Up
                         </button>
+                        <p class="text-center m-t-20">
+                            <a href="{% url 'account_login' %}">Already have an account?</a>
+                        </p>
                     </form>
                     {# END FORM #}
                 </div><!-- /.col-md-12 -->
