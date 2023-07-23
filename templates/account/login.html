@@ -66,6 +66,7 @@
                                     {{ form.password }}
                                 </div><!-- /.input-group -->
                             </div><!-- /.form-group -->
+                        {{ form.non_field_errors }}
                         <div class="form-group ">
                                 <div class="input-group round">
                                     {{ form.user_type }}
@@ -73,6 +74,12 @@
                             </div><!-- /.form-group -->
                         <button id="btnLogin" class="btn btn-info btn-round btn-block" type="submit"> Login
                         </button>
+                        <p class="text-center m-t-20">
+                            <a href="{% url 'account_reset_password' %}">Forgot password ?</a>
+                        </p>
+                        <p class="text-center m-t-15">
+                            <a href="{% url 'account_signup' %}">Don't have an account? Sign Up.</a>
+                        </p>
                     </form>
                     {# END FORM #}
                 </div>
