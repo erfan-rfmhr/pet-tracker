@@ -58,9 +58,9 @@
                                             <a href="{% url 'petowner_delete' user_obj.user.id %}" class="btn btn-sm  DeletT" title="Delete"><i
                                                     class="fa fa-remove fa-2x text-danger"></i>
                                             </a>
-                                            <button class="btn btn-sm  EditT" title="Edit">
+                                            <a href="{% url 'petowner_edit' user_obj.user.id %}" class="btn btn-sm  EditT" title="Edit">
                                                 <i class="fa fa-edit fa-2x"></i>
-                                            </button>
+                                            </a>
                                             <a target="_blank" href="buildings?customer=18"
                                                class="btn btn-sm  BuildingT"
                                                title="Building"><i class="fa fa-building fa-2x text-primary"></i>
