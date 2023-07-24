@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'core',
+    'pet',
     'petowner',
     'staff',
 ]
