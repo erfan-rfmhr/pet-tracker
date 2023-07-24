@@ -1,5 +1,6 @@
 from allauth.account.views import LoginView
 from django.contrib.auth import authenticate, login, get_user_model
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from petowner.models import PetOwner
@@ -7,6 +8,7 @@ from .forms import CustomLoginForm
 
 
 # Create your views here.
+@login_required
 def index(request):
     context = {}
     if request.user.is_authenticated and request.user.is_staff:

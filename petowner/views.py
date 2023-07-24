@@ -3,13 +3,13 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from rest_framework import generics
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from core.forms import UserProfileUpdateForm
 from .models import PetOwner
 from .serializers import PetOwnerCreationSerializer
 
 
-class PetOwnerUpdateView(generic.UpdateView):
+class PetOwnerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = get_user_model()
     form_class = UserProfileUpdateForm
     template_name = 'account/profile.html'
@@ -17,7 +17,7 @@ class PetOwnerUpdateView(generic.UpdateView):
     success_url = reverse_lazy('index')
 
 
-class PetOwnerCreateAPIView(generics.CreateAPIView):
+class PetOwnerCreateAPIView(LoginRequiredMixin, generics.CreateAPIView):
     queryset = PetOwner.objects.all()
     serializer_class = PetOwnerCreationSerializer
 
@@ -35,7 +35,7 @@ class PetOwnerCreateAPIView(generics.CreateAPIView):
         PetOwner.objects.create(user=user, phone=data['phone'], address=data['address'], )
 
 
-class PetOwnerDeleteView(generic.DeleteView):
+class PetOwnerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = get_user_model()
     template_name = 'Pages/petowner_delete.html'
     success_url = reverse_lazy('index')
