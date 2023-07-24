@@ -42,7 +42,8 @@
 <div class="navbar navbar-fixed-top" id="main-navbar">
     <div class="header-left">
         <a href="#" class="logo-con">
-            <img src="{% static 'assets/images/IBT.png' %}" class="img-responsive center-block" alt="logo">
+            <img src="{% static 'assets\images\pet-logo2.png' %}" class="img-responsive center-block" alt="logo"
+                 width="130px">
         </a>
     </div><!-- /.header-left -->
     <div class="header-right">
@@ -75,7 +76,7 @@
                     <a href="#" class="dropdown-toggle dropdown-hover" data-bs-toggle="dropdown">
 
                         <img id="imgProfile1"
-                             src="{% static 'assets/images/user/128.png' %}"
+                             src="{% static '' %}{{ user.image }}"
                              alt="profile image" class="img-circle img-responsive img_profile_Right VDimgUser">
 
                         <span class="VDUser">{{ user.username }}</span>
@@ -84,12 +85,12 @@
                     <ul class="dropdown-menu">
                         <li>
                             {% if user.is_staff %}
-                            <a href="{% url 'staff_profile' user.id %}">
+                                <a href="{% url 'staff_profile' user.id %}">
                             {% else %}
-                            <a href="{% url 'petowner_edit' user.id %}">
+                                <a href="{% url 'petowner_edit' user.id %}">
                             {% endif %}
-                                <i class="icon-note"></i>
-                                Edit Profile
+                            <i class="icon-note"></i>
+                            Edit Profile
                             </a>
                         </li>
                         <li>
@@ -126,7 +127,7 @@
 
             <div class="user-box">
                 <a href="#">
-                    <img id="imgProfile2" src="{% static 'assets/images/user/128.png' %}" alt="profile image"
+                    <img id="imgProfile2" src="{% static '' %}{{ user.image }}" alt="profile image"
                          class="img-circle img-responsive img_profile_Menu VDimgUser">
                 </a>
                 <div class="user-details">
@@ -160,7 +161,7 @@
                     <a href="{% url 'index' %}" class="" id="CustomersPage">
                         <i class="fa fa-home"></i>
                         {% if user.is_staff %}
-                        <span>Pet owners</span>
+                            <span>Pet owners</span>
                         {% endif %}
                     </a>
 
@@ -354,19 +355,16 @@
 <!-- END PAGE JAVASCRIPT -->
 <script>
 
-        function NoExistWebSite() {
-            swal({
-                type: 'error',
-                title: 'Information',
-                text: "The website is currently unavailable",
-                timer: 6000
-            }).catch(swal.noop);
+    function NoExistWebSite() {
+        swal({
+            type: 'error',
+            title: 'Information',
+            text: "The website is currently unavailable",
+            timer: 6000
+        }).catch(swal.noop);
 
-            return false;
-        }
-      
-
-
+        return false;
+    }
 
 
 </script>

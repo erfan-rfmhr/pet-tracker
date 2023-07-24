@@ -52,18 +52,21 @@
                                         <td>{{ user_obj.user.last_name }}</td>
                                         <td>{{ user_obj.user.username }}</td>
                                         <td>{{ user_obj.phone }}</td>
-                                        <td><img src="{% static '' %}{{ user_obj.image }}" alt="user profile image"
-                                                 class="img-circle"></td>
+                                        <td><img src="{% static '' %}{{ user_obj.user.image }}" alt="user profile image"
+                                                 class="img-circle" width="80px"></td>
                                         <td>
-                                            <a href="{% url 'petowner_delete' user_obj.user.id %}" class="btn btn-sm  DeletT" title="Delete"><i
+                                            <a href="{% url 'petowner_delete' user_obj.user.id %}"
+                                               class="btn btn-sm  DeletT" title="Delete"><i
                                                     class="fa fa-remove fa-2x text-danger"></i>
                                             </a>
-                                            <a href="{% url 'petowner_edit' user_obj.user.id %}" class="btn btn-sm  EditT" title="Edit">
+                                            <a href="{% url 'petowner_edit' user_obj.user.id %}"
+                                               class="btn btn-sm  EditT" title="Edit">
                                                 <i class="fa fa-edit fa-2x"></i>
                                             </a>
-                                            <a target="_blank" href="buildings?customer=18"
+                                            <a target="_blank" href="#"
                                                class="btn btn-sm  BuildingT"
-                                               title="Building"><i class="fa fa-building fa-2x text-primary"></i>
+                                               title="Pet"><img src="{% static 'assets\images\pet-logo1.png' %}"
+                                                                     width="100px" alt="pet">
                                             </a>
                                         </td>
                                     </tr>
@@ -188,23 +191,23 @@
         const cancelBtn = document.getElementById('cancel-btn');
         const submitBtn = document.getElementById('submit-btn');
 
-            toggleBtn.addEventListener('click', () => {
-                document.getElementById('toggle-btn').hidden = true;
-                if (table.classList.contains('d-none')) {
-                    table.classList.remove('d-none');
-                    form.classList.add('d-none');
-                } else {
-                    table.classList.add('d-none');
-                    form.classList.remove('d-none');
-                }
-            });
-
-            cancelBtn.addEventListener('click', (event) => {
-                document.getElementById('toggle-btn').hidden = false;
-                event.preventDefault();
-                form.classList.add('d-none');
+        toggleBtn.addEventListener('click', () => {
+            document.getElementById('toggle-btn').hidden = true;
+            if (table.classList.contains('d-none')) {
                 table.classList.remove('d-none');
-            });
+                form.classList.add('d-none');
+            } else {
+                table.classList.add('d-none');
+                form.classList.remove('d-none');
+            }
+        });
+
+        cancelBtn.addEventListener('click', (event) => {
+            document.getElementById('toggle-btn').hidden = false;
+            event.preventDefault();
+            form.classList.add('d-none');
+            table.classList.remove('d-none');
+        });
     </script>
 
 {% endblock PageContent %}
