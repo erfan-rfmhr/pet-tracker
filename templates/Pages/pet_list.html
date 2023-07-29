@@ -54,7 +54,7 @@
                                         <td>{{ pet.breed }}</td>
                                         <td>{{ pet.age }}</td>
                                         <td>{{ pet.birthdate }}</td>
-                                        <td><img src="{% static '' %}{{ pet.image }}" alt="pet image"> </td>
+                                        <td><img src="{% static '' %}{{ pet.image }}" alt="pet image"></td>
                                         <td>{{ pet.serial_number }}</td>
                                         <td>
                                             <a href="#"
@@ -70,86 +70,90 @@
                                 {% endfor %}
                                 </thead>
                             </table>
-                            <form id="newPetForm" class="d-none" method="post" action="#">
+                            <form id="newPetForm" class="d-none" method="post" action="/api/pets/create" enctype="multipart/form-data">
                                 {% csrf_token %}
-{#                                <div class="row">#}
-{#                                    <div class="col">#}
-{#                                        <div class="form-group ">#}
-{#                                            <label for="id_login"> First name:#}
-{#                                            </label>#}
-{#                                            <div class="input-group round">#}
-{#                                            <span class="input-group-addon">#}
-{#                                                <i class="icon-user"></i>#}
-{#                                            </span>#}
-{#                                                <input type="text" name="first_name" placeholder="First name">#}
-{#                                            </div><!-- /.input-group -->#}
-{#                                        </div><!-- /.form-group -->#}
-{#                                    </div>#}
-{#                                    <div class="col">#}
-{#                                        <div class="form-group ">#}
-{#                                            <label for="id_login"> Last name:#}
-{#                                            </label>#}
-{#                                            <div class="input-group round">#}
-{#                                            <span class="input-group-addon">#}
-{#                                                <i class="icon-user"></i>#}
-{#                                            </span>#}
-{#                                                <input type="text" name="last_name" placeholder="Last name">#}
-{#                                            </div><!-- /.input-group -->#}
-{#                                        </div><!-- /.form-group -->#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="row">#}
-{#                                    <div class="col">#}
-{#                                        <div class="form-group ">#}
-{#                                            <label for="id_login"> Phone:#}
-{#                                            </label>#}
-{#                                            <div class="input-group round">#}
-{#                                            <span class="input-group-addon">#}
-{#                                                <i class="icon-phone"></i>#}
-{#                                            </span>#}
-{#                                                <input type="text" name="phone" placeholder="Phone">#}
-{#                                            </div><!-- /.input-group -->#}
-{#                                        </div><!-- /.form-group -->#}
-{#                                    </div>#}
-{#                                    <div class="col">#}
-{#                                        <div class="form-group ">#}
-{#                                            <label for="id_login"> Address:#}
-{#                                            </label>#}
-{#                                            <div class="input-group round">#}
-{#                                            <span class="input-group-addon">#}
-{#                                                <i class="icon-location-pin"></i>#}
-{#                                            </span>#}
-{#                                                <input type="text" name="address" placeholder="Address">#}
-{#                                            </div><!-- /.input-group -->#}
-{#                                        </div><!-- /.form-group -->#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div class="row">#}
-{#                                    <div class="col">#}
-{#                                        <div class="form-group ">#}
-{#                                            <label for="id_login"> Username:#}
-{#                                            </label>#}
-{#                                            <div class="input-group round">#}
-{#                                            <span class="input-group-addon">#}
-{#                                                <i class="icon-user"></i>#}
-{#                                            </span>#}
-{#                                                <input type="text" name="username" placeholder="Username">#}
-{#                                            </div><!-- /.input-group -->#}
-{#                                        </div><!-- /.form-group -->#}
-{#                                    </div>#}
-{#                                    <div class="col">#}
-{#                                        <div class="form-group ">#}
-{#                                            <label for="id_login"> Password:#}
-{#                                            </label>#}
-{#                                            <div class="input-group round">#}
-{#                                            <span class="input-group-addon">#}
-{#                                                <i class="icon-lock"></i>#}
-{#                                            </span>#}
-{#                                                <input type="password" name="password" placeholder="Password">#}
-{#                                            </div><!-- /.input-group -->#}
-{#                                        </div><!-- /.form-group -->#}
-{#                                    </div>#}
-{#                                </div>#}
+                                <input type="hidden" value="{{ petowner_username }}" name="petowner_username">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group ">
+                                            <label for="nameInput"> Name:
+                                            </label>
+                                            <div class="input-group round">
+                                            <span class="input-group-addon">
+                                            </span>
+                                                <input id="nameInput" type="text" name="name" placeholder="Name">
+                                            </div><!-- /.input-group -->
+                                        </div><!-- /.form-group -->
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group ">
+                                            <label for="typeInput"> Type:
+                                            </label>
+                                            <div class="input-group round">
+                                            <span class="input-group-addon">
+                                            </span>
+                                                <input id="typeInput" type="text" name="type" placeholder="Type">
+                                            </div><!-- /.input-group -->
+                                        </div><!-- /.form-group -->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group ">
+                                            <label for="breedInput"> Breed:
+                                            </label>
+                                            <div class="input-group round">
+                                            <span class="input-group-addon">
+                                            </span>
+                                                <input id="breedInput" type="text" name="breed" placeholder="Breed">
+                                            </div><!-- /.input-group -->
+                                        </div><!-- /.form-group -->
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group ">
+                                            <label for="ageInput"> Age:
+                                            </label>
+                                            <div class="input-group round">
+                                            <span class="input-group-addon">
+                                            </span>
+                                                <input id="ageInput" type="number" name="age" placeholder="Age">
+                                            </div><!-- /.input-group -->
+                                        </div><!-- /.form-group -->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group ">
+                                            <label for="birthdateInput"> Birthdate:
+                                            </label>
+                                            <div class="input-group round">
+                                            <span class="input-group-addon">
+                                            </span>
+                                                <input id="birthdateInput" type="date" name="birthdate" placeholder="Birthdate">
+                                            </div><!-- /.input-group -->
+                                        </div><!-- /.form-group -->
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group ">
+                                            <label for="serialnumberInput"> Serial Number:
+                                            </label>
+                                            <div class="input-group round">
+                                            <span class="input-group-addon">
+                                            </span>
+                                                <input id="serialnumberInput" type="text" name="serial_number" placeholder="Serial Number">
+                                            </div><!-- /.input-group -->
+                                        </div><!-- /.form-group -->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="imageInput">Image:</label>
+                                        <div class="input-group round">
+                                            <input type="file" id="imageInput" name="image">
+                                        </div><!-- /.input-group -->
+                                    </div>
+                                </div>
+                                <br>
                                 <button id="submit-btn" class="btn btn-info btn-round" type="submit">
                                     Submit
                                 </button>
