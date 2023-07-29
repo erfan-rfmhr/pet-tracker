@@ -1,9 +1,11 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from rest_framework import generics
-from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.permissions import IsAuthenticated
+
 from core.forms import UserProfileUpdateForm
 from .models import PetOwner
 from .serializers import PetOwnerCreationSerializer
@@ -17,9 +19,10 @@ class PetOwnerUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy('index')
 
 
-class PetOwnerCreateAPIView(LoginRequiredMixin, generics.CreateAPIView):
+class PetOwnerCreateAPIView(generics.CreateAPIView):
     queryset = PetOwner.objects.all()
     serializer_class = PetOwnerCreationSerializer
+    permission_classes = (IsAuthenticated,)
 
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
