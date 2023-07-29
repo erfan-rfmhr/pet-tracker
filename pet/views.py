@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView
+
 from petowner.models import PetOwner
 from .serializers import PetSerializer
 
@@ -24,6 +25,8 @@ class PetListView(LoginRequiredMixin, generic.ListView):
 
 
 class PetCreateView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def post(self, request):
         petowner_username = request.data.get('petowner_username')
         petowner = PetOwner.objects.get(user__username=petowner_username)
