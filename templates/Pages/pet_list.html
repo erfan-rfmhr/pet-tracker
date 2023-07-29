@@ -43,6 +43,8 @@
                                     <th>Breed</th>
                                     <th>Age</th>
                                     <th>Birthdate</th>
+                                    <th>Image</th>
+                                    <th>Serial</th>
                                     <th>Actions</th>
                                 </tr>
                                 {% for pet in pets %}
@@ -52,6 +54,8 @@
                                         <td>{{ pet.breed }}</td>
                                         <td>{{ pet.age }}</td>
                                         <td>{{ pet.birthdate }}</td>
+                                        <td><img src="{% static '' %}{{ pet.image }}" alt="pet image"> </td>
+                                        <td>{{ pet.serial_number }}</td>
                                         <td>
                                             <a href="#"
                                                class="btn btn-sm  DeletT" title="Delete"><i
