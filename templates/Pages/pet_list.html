@@ -57,7 +57,7 @@
                                         <td><img src="{% static '' %}{{ pet.image }}" alt="pet image"></td>
                                         <td>{{ pet.serial_number }}</td>
                                         <td>
-                                            <a href="#"
+                                            <a href="{% url 'pet_delete' pet.id %}"
                                                class="btn btn-sm  DeletT" title="Delete"><i
                                                     class="fa fa-remove fa-2x text-danger"></i>
                                             </a>

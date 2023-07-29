@@ -1,0 +1,90 @@
+{% extends 'Pages/Shared/_Layout.html' %}
+{% block PageContent %}
+    {% load static %}
+    <div id="page-content">
+        <div class="row">
+            <!-- BEGIN BREADCRUMB -->
+            <div class="col-md-12">
+                <div class="breadcrumb-box border shadow">
+                    <ul class="breadcrumb">
+                        <li><a id="ttlPage" href="#">Delete Pet</a></li>
+                    </ul>
+                    <div class="breadcrumb-right">
+
+                    <span class="dateToday">
+                        Fri, 26 Aug 2022
+                    </span>
+                        <i class="icon-calendar"></i>
+                    </div><!-- /.breadcrumb-right -->
+                </div><!-- /.breadcrumb-box -->
+            </div><!-- /.col-md-12 -->
+            <!-- END BREADCRUMB -->
+        </div>
+
+        <div id="gridUser" class="row justify-content-center">
+            <div class=" col-lg-10  col-12">
+                <div class="portlet box border shadow">
+                    <div class="portlet-body">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col">
+                                    <img id="imgProfile1"
+                                         src="{% static '' %}{{ object.image }}"
+                                         alt="profile image"
+                                         class="img-circle img-responsive img_profile_Right VDimgUser">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    Name: {{ object.name }}
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    Breed: {{ object.breed }}
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    Age: {{ object.age }}
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    Birthdate: {{ object.birthdate }}
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    Serial Number: {{ object.serial_number }}
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <input class="btn btn-danger btn-round" type="submit" value="Delete">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <a class="btn btn-cyan btn-round" href="{% url 'index' %}">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /#page-content -->
+
+        <style>
+            .error, .has-error + .help-block, .has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label {
+                color: #f55145;
+
+            }
+        </style>
+
+        <link href="{% static 'assets/plugins/data-table/css/jquery.dataTables.min.css' %}" rel="stylesheet"/>
+        <link href="{% static 'assets/plugins/data-table/css/buttons.dataTables.min.css' %}" rel="stylesheet"/>
+        <link href="{% static 'assets/plugins/select2/dist/css/select2.min.css' %}" rel="stylesheet">
+
+{% endblock PageContent %}

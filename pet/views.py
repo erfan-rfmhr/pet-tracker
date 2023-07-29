@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 from django.views import generic
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from petowner.models import PetOwner
+from .models import PetModel
 from .serializers import PetSerializer
 
 
@@ -38,3 +40,13 @@ class PetCreateView(APIView):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+
+class PetDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = PetModel
+    template_name = 'Pages/pet_delete.html'
+
+    def get_success_url(self):
+        pet = PetModel.objects.get(pk=self.kwargs['pk'])
+        petowner_id = pet.petowner.id
+        return reverse_lazy('pet_list', kwargs={'pk': petowner_id})
