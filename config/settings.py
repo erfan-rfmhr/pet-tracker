@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_framework',
     'corsheaders',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
     'core',
     'pet',
@@ -153,3 +155,6 @@ ACCOUNT_SESSION_REMEMBER = True
 LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'account_login'
+
+CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'

@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from petowner.models import PetOwner
+from .forms import PetModelForm
 from .models import PetModel
 from .serializers import PetSerializer
 
@@ -51,3 +52,12 @@ class PetDeleteView(LoginRequiredMixin, generic.DeleteView):
         pet = PetModel.objects.get(pk=self.kwargs['pk'])
         petowner_id = pet.petowner.id
         return reverse_lazy('pet_list', kwargs={'pk': petowner_id})
+
+
+class PetUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = PetModel
+    form_class = PetModelForm
+    template_name = 'Pages/pet_update.html'
+    success_url = reverse_lazy('index')
+
+
