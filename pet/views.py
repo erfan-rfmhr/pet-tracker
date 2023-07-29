@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.shortcuts import redirect
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -38,7 +39,7 @@ class PetCreateView(APIView):
         serializer = PetSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=201)
+            return redirect(reverse('pet_list', kwargs={'pk': petowner.id}))
         return Response(serializer.errors, status=400)
 
 
