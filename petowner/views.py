@@ -5,8 +5,11 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from core.forms import UserProfileUpdateForm
+from pet.serializers import PetSerializer
 from .models import PetOwner
 from .serializers import PetOwnerCreationSerializer
 
@@ -42,3 +45,35 @@ class PetOwnerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = get_user_model()
     template_name = 'Pages/petowner_delete.html'
     success_url = reverse_lazy('index')
+
+
+class PetOwnerPetListView(LoginRequiredMixin, generic.ListView):
+    template_name = 'Pages/pet_list.html'
+
+    def get_queryset(self):
+        petowner = PetOwner.objects.get(pk=self.kwargs['pk'])
+        PetOwner.objects.prefetch_related('pets')
+        return petowner.pets.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        petowner = PetOwner.objects.get(pk=self.kwargs['pk'])
+        context['petowner_username'] = petowner.user.username
+        context['pets'] = petowner.pets.all()
+        return context
+
+
+class PetOwnerCreatePetView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        petowner_username = request.data.get('petowner_username')
+        petowner = PetOwner.objects.get(user__username=petowner_username)
+        data = request.data.copy()
+        data['petowner'] = petowner.id
+        data['image'] = request.FILES.get('image') if 'image' in request.FILES else ''
+        serializer = PetSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return redirect(reverse('pet_list', kwargs={'pk': petowner.id}))
+        return Response(serializer.errors, status=400)

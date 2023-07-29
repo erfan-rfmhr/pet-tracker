@@ -70,7 +70,7 @@
                                 {% endfor %}
                                 </thead>
                             </table>
-                            <form id="newPetForm" class="d-none" method="post" action="/api/pets/create" enctype="multipart/form-data">
+                            <form id="newPetForm" class="d-none" method="post" action="{% url 'pet_create' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <input type="hidden" value="{{ petowner_username }}" name="petowner_username">
                                 <div class="row">
