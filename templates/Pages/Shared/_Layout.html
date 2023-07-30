@@ -85,9 +85,9 @@
                     <ul class="dropdown-menu">
                         <li>
                             {% if user.is_staff %}
-                                <a href="{% url 'staff_profile' user.id %}">
+                                <a href="{% url 'staff:profile' user.id %}">
                             {% else %}
-                                <a href="{% url 'petowner_edit' user.id %}">
+                                <a href="{% url 'petowner:edit' user.id %}">
                             {% endif %}
                             <i class="icon-note"></i>
                             Edit Profile

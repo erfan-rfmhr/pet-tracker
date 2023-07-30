@@ -13,7 +13,7 @@ class PetDeleteView(LoginRequiredMixin, generic.DeleteView):
     def get_success_url(self):
         pet = PetModel.objects.get(pk=self.kwargs['pk'])
         petowner_id = pet.petowner.id
-        return reverse_lazy('pet_list', kwargs={'pk': petowner_id})
+        return reverse_lazy('petowner:pet_list', kwargs={'pk': petowner_id})
 
 
 class PetUpdateView(LoginRequiredMixin, generic.UpdateView):

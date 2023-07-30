@@ -75,5 +75,5 @@ class PetOwnerCreatePetView(APIView):
         serializer = PetSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return redirect(reverse('pet_list', kwargs={'pk': petowner.id}))
+            return redirect(reverse('petowner:pet_list', kwargs={'pk': petowner.id}))
         return Response(serializer.errors, status=400)

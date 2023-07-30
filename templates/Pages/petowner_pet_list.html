@@ -57,11 +57,11 @@
                                         <td><img src="{% static '' %}{{ pet.image }}" alt="pet image"></td>
                                         <td>{{ pet.serial_number }}</td>
                                         <td>
-                                            <a href="{% url 'pet_delete' pet.id %}"
+                                            <a href="{% url 'pet:delete' pet.id %}"
                                                class="btn btn-sm  DeletT" title="Delete"><i
                                                     class="fa fa-remove fa-2x text-danger"></i>
                                             </a>
-                                            <a href="{% url 'pet_update' pet.id %}"
+                                            <a href="{% url 'pet:update' pet.id %}"
                                                class="btn btn-sm  EditT" title="Edit">
                                                 <i class="fa fa-edit fa-2x"></i>
                                             </a>
@@ -70,7 +70,7 @@
                                 {% endfor %}
                                 </thead>
                             </table>
-                            <form id="newPetForm" class="d-none" method="post" action="{% url 'pet_create' %}" enctype="multipart/form-data">
+                            <form id="newPetForm" class="d-none" method="post" action="{% url 'petowner:pet_create' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <input type="hidden" value="{{ petowner_username }}" name="petowner_username">
                                 <div class="row">

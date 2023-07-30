@@ -12,7 +12,7 @@ class StaffProfileUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = UserProfileUpdateForm
 
     def get_success_url(self):
-        return reverse_lazy('staff_profile', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('staff:profile', kwargs={'pk': self.kwargs['pk']})
 
     def get_queryset(self):
         # Get staff users

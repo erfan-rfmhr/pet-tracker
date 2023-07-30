@@ -55,15 +55,15 @@
                                         <td><img src="{% static '' %}{{ user_obj.user.image }}" alt="user profile image"
                                                  class="img-circle" width="80px"></td>
                                         <td>
-                                            <a href="{% url 'petowner_delete' user_obj.user.id %}"
+                                            <a href="{% url 'petowner:delete' user_obj.user.id %}"
                                                class="btn btn-sm  DeletT" title="Delete"><i
                                                     class="fa fa-remove fa-2x text-danger"></i>
                                             </a>
-                                            <a href="{% url 'petowner_edit' user_obj.user.id %}"
+                                            <a href="{% url 'petowner:edit' user_obj.user.id %}"
                                                class="btn btn-sm  EditT" title="Edit">
                                                 <i class="fa fa-edit fa-2x"></i>
                                             </a>
-                                            <a target="_blank" href="{% url 'pet_list' user_obj.id %}"
+                                            <a target="_blank" href="{% url 'petowner:pet_list' user_obj.id %}"
                                                class="btn btn-sm  BuildingT"
                                                title="Pet"><img src="{% static 'assets\images\pet-logo1.png' %}"
                                                                      width="100px" alt="pet">
