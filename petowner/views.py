@@ -48,7 +48,7 @@ class PetOwnerDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 class PetOwnerPetListView(LoginRequiredMixin, generic.ListView):
-    template_name = 'Pages/pet_list.html'
+    template_name = 'Pages/petowner_pet_list.html'
 
     def get_queryset(self):
         petowner = PetOwner.objects.get(pk=self.kwargs['pk'])
