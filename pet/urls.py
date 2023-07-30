@@ -7,4 +7,5 @@ app_name = 'pet'
 urlpatterns = [
     path('pets/<int:pk>/delete', views.PetDeleteView.as_view(), name='delete'),
     path('pets/<int:pk>/update', views.PetUpdateView.as_view(), name='update'),
+    path('pets/list', views.PetListView.as_view(), name='list'),
 ]

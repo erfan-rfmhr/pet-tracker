@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="breadcrumb-box border shadow">
                     <ul class="breadcrumb">
-                        <li><a id="ttlPage" href="#">{{ petowner_username }}'s pets</a></li>
+                        <li><a id="ttlPage" href="#">Pets</a></li>
                     </ul>
                     <div class="breadcrumb-right">
 
@@ -45,6 +45,7 @@
                                     <th>Birthdate</th>
                                     <th>Image</th>
                                     <th>ID</th>
+                                    <th>Owner</th>
                                     <th>Actions</th>
                                 </tr>
                                 {% for pet in pets %}
@@ -56,6 +57,7 @@
                                         <td>{{ pet.birthdate }}</td>
                                         <td><img src="{{ pet.image.url }}" alt="pet image" width="100px"></td>
                                         <td>{{ pet.serial_number }}</td>
+                                        <td>{{ pet.petowner.user.username }}</td>
                                         <td>
                                             <a href="{% url 'pet:delete' pet.id %}"
                                                class="btn btn-sm  DeletT" title="Delete"><i
@@ -64,6 +66,11 @@
                                             <a href="{% url 'pet:update' pet.id %}"
                                                class="btn btn-sm  EditT" title="Edit">
                                                 <i class="fa fa-edit fa-2x"></i>
+                                            </a>
+                                            <a href="{% url 'petowner:edit' pet.petowner.user.id %}"
+                                               class="btn btn-sm" title="Owner">
+                                                <img src="{{ pet.petowner.user.image.url }}" alt="pet owner image"
+                                                     class="rounded-circle" width="30" height="30">
                                             </a>
                                         </td>
                                     </tr>
