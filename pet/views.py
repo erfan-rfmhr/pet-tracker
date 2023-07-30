@@ -1,19 +1,19 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .forms import PetModelForm
 from .models import PetModel
 
 
-class PetDeleteView(LoginRequiredMixin, generic.DeleteView):
-    model = PetModel
-    template_name = 'Pages/pet_delete.html'
-
-    def get_success_url(self):
-        pet = PetModel.objects.get(pk=self.kwargs['pk'])
-        petowner_id = pet.petowner.id
-        return reverse_lazy('petowner:pet_list', kwargs={'pk': petowner_id})
+class PetDeleteAPIView(APIView):
+    def delete(self, request, pk):
+        pet = get_object_or_404(PetModel, pk=pk)
+        pet.delete()
+        return Response(status=204)
 
 
 class PetUpdateView(LoginRequiredMixin, generic.UpdateView):

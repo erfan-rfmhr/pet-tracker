@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from rest_framework import generics
@@ -41,10 +41,13 @@ class PetOwnerCreateAPIView(generics.CreateAPIView):
         PetOwner.objects.create(user=user, phone=data['phone'], address=data['address'], )
 
 
-class PetOwnerDeleteView(LoginRequiredMixin, generic.DeleteView):
-    model = get_user_model()
-    template_name = 'Pages/petowner_delete.html'
-    success_url = reverse_lazy('index')
+class PetOwnerDeleteAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def delete(self, request, pk):
+        petowner = get_object_or_404(PetOwner, pk=pk)
+        petowner.user.delete()
+        return Response(status=204)
 
 
 class PetOwnerPetListView(LoginRequiredMixin, generic.ListView):

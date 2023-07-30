@@ -59,10 +59,10 @@
                                         <td>{{ pet.serial_number }}</td>
                                         <td>{{ pet.petowner.user.username }}</td>
                                         <td>
-                                            <a href="{% url 'pet:delete' pet.id %}"
-                                               class="btn btn-sm  DeletT" title="Delete"><i
-                                                    class="fa fa-remove fa-2x text-danger"></i>
-                                            </a>
+                                           <button class="btn btn-sm  DeletT" title="Delete"
+                                                    onclick="delete_pet_btn({{ pet.id }}, '{{ pet.name }}')">
+                                                <i class="fa fa-remove fa-2x text-danger"></i>
+                                            </button>
                                             <a href="{% url 'pet:update' pet.id %}"
                                                class="btn btn-sm  EditT" title="Edit">
                                                 <i class="fa fa-edit fa-2x"></i>
@@ -77,7 +77,8 @@
                                 {% endfor %}
                                 </thead>
                             </table>
-                            <form id="newPetForm" class="d-none" method="post" action="{% url 'petowner:pet_create' %}" enctype="multipart/form-data">
+                            <form id="newPetForm" class="d-none" method="post" action="{% url 'petowner:pet_create' %}"
+                                  enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <input type="hidden" value="{{ petowner_username }}" name="petowner_username">
                                 <div class="row">
@@ -136,7 +137,8 @@
                                             <div class="input-group round">
                                             <span class="input-group-addon">
                                             </span>
-                                                <input id="birthdateInput" type="date" name="birthdate" placeholder="Birthdate">
+                                                <input id="birthdateInput" type="date" name="birthdate"
+                                                       placeholder="Birthdate">
                                             </div><!-- /.input-group -->
                                         </div><!-- /.form-group -->
                                     </div>
@@ -147,7 +149,8 @@
                                             <div class="input-group round">
                                             <span class="input-group-addon">
                                             </span>
-                                                <input id="serialnumberInput" type="text" name="serial_number" placeholder="ID Number">
+                                                <input id="serialnumberInput" type="text" name="serial_number"
+                                                       placeholder="ID Number">
                                             </div><!-- /.input-group -->
                                         </div><!-- /.form-group -->
                                     </div>
@@ -191,6 +194,8 @@
     <link href="{% static 'assets/plugins/data-table/css/jquery.dataTables.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'assets/plugins/data-table/css/buttons.dataTables.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'assets/plugins/select2/dist/css/select2.min.css' %}" rel="stylesheet">
+
+    <script src="{% static '/js/delete.js' %}"></script>
 
     <script>
         const toggleBtn = document.getElementById('toggle-btn');
