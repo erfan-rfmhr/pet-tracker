@@ -21,3 +21,9 @@ class PetUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = PetModelForm
     template_name = 'Pages/pet_update.html'
     success_url = reverse_lazy('index')
+
+
+class PetListView(LoginRequiredMixin, generic.ListView):
+    model = PetModel
+    template_name = 'Pages/pet_list.html'
+    context_object_name = 'pets'

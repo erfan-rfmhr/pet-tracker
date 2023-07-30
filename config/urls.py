@@ -21,10 +21,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('petowner.urls')),
-    path('', include('pet.urls')),
+    path('', include('petowner.urls', namespace='petowner')),
+    path('', include('pet.urls', namespace='pet')),
     path('', include('core.urls')),
     path('accounts/', include('core.urls')),
-    path('staff/', include('staff.urls')),
+    path('staff/', include('staff.urls', namespace='staff')),
     path('accounts/', include('allauth.urls')),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
