@@ -13,7 +13,7 @@ class CustomLoginForm(LoginForm):
 class UserProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ['first_name', 'last_name', 'username']
+        fields = ['first_name', 'last_name', 'username', 'image']
         widgets = {
             'username': forms.TextInput(attrs={'readonly': 'readonly'}),
         }
