@@ -39,7 +39,7 @@
                                     <div class="tab-pane active" id="tab23">
                                         <fieldset>
                                             <input type="hidden" id="hfId"/>
-                                            <form method="POST" role="form">
+                                            <form method="POST" role="form" enctype="multipart/form-data">
                                                 {% csrf_token %}
                                               {{ form|crispy }}
                                                 <div class="form-actions text-center mt-3">
