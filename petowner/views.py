@@ -37,7 +37,8 @@ class PetOwnerCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         data = serializer.validated_data
         user = get_user_model().objects.create_user(username=data['username'], password=data['password'],
-                                                    first_name=data['first_name'], last_name=data['last_name'], )
+                                                    first_name=data['first_name'], last_name=data['last_name'],
+                                                    image=data['image'])
         PetOwner.objects.create(user=user, phone=data['phone'], address=data['address'], )
 
 

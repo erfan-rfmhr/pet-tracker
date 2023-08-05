@@ -8,3 +8,4 @@ class PetOwnerCreationSerializer(serializers.Serializer):
     address = serializers.CharField(max_length=255)
     username = serializers.CharField(max_length=100)
     password = serializers.CharField(max_length=100)
+    image = serializers.ImageField(required=False)

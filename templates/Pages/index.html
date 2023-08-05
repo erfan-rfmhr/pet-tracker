@@ -73,7 +73,8 @@
                                 {% endfor %}
                                 </thead>
                             </table>
-                            <form id="newPetOwnerForm" class="d-none" method="post" action="/api/petowner/new/">
+                            <form id="newPetOwnerForm" class="d-none" method="post" action="/api/petowner/new/"
+                                  enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="row">
                                     <div class="col">
@@ -153,12 +154,28 @@
                                         </div><!-- /.form-group -->
                                     </div>
                                 </div>
-                                <button id="submit-btn" class="btn btn-info btn-round" type="submit">
-                                    Submit
-                                </button>
-                                <button id="cancel-btn" class="btn btn-danger btn-round" type="button">
-                                    Cancel
-                                </button>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="imageInput">Image:</label>
+                                        <div class="input-group round">
+                                            <input type="file" id="imageInput" name="image">
+                                        </div><!-- /.input-group -->
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <button id="submit-btn" class="btn btn-info btn-round" type="submit">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <button id="cancel-btn" class="btn btn-danger btn-round" type="button">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
 
