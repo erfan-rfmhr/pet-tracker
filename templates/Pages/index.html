@@ -55,10 +55,40 @@
                                         <td><img src="{% static '' %}{{ user_obj.user.image }}" alt="user profile image"
                                                  class="img-circle" width="80px"></td>
                                         <td>
-                                            <button class="btn btn-sm  DeletT" title="Delete"
-                                                    onclick="delete_petowner_btn({{ user_obj.id }}, '{{ user_obj.user.username }}')">
+                                            <!-- Modal trigger -->
+                                            <button type="button" class="btn btn-sm" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteModal{{ user_obj.id }}">
                                                 <i class="fa fa-remove fa-2x text-danger"></i>
                                             </button>
+                                            <!-- End Modal trigger -->
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="deleteModal{{ user_obj.id }}" tabindex="-1"
+                                                 aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="deleteModalLabel">Delete
+                                                                owner</h1>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Delete "{{ user_obj.user.username }}"?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                    onclick="delete_petowner_btn({{ user_obj.id }}, '{{ user_obj.user.username }}')">
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Modal -->
+
                                             <a href="{% url 'petowner:edit' user_obj.user.id %}"
                                                class="btn btn-sm  EditT" title="Edit">
                                                 <i class="fa fa-edit fa-2x"></i>

@@ -1,32 +1,27 @@
 function delete_petowner_btn(petowner_id, petowner_username) {
-    if (confirm('Are you sure you want to delete "' + petowner_username + '"?')) {
-        $.ajax({
-            url: '/api/petowner/' + petowner_id + '/delete',
-            type: 'DELETE',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
-            },
-            success: function (result) {
-                location.reload();
-            }
-        });
-    }
+    $.ajax({
+        url: '/api/petowner/' + petowner_id + '/delete', type: 'DELETE', beforeSend: function (xhr) {
+            xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+        }, success: function (result) {
+            location.reload();
+        }
+    });
 }
 
+
 function delete_pet_btn(pet_id, pet_name) {
-    if (confirm('Are you sure you want to delete "' + pet_name + '"?')) {
-        $.ajax({
-            url: '/api/pets/' + pet_id + '/delete',
-            type: 'DELETE',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
-            },
-            success: function (result) {
-                location.reload();
-            }
-        });
-    }
+    $.ajax({
+        url: '/api/pets/' + pet_id + '/delete',
+        type: 'DELETE',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
+        },
+        success: function (result) {
+            location.reload();
+        }
+    });
 }
+
 
 // Function to get a cookie
 function getCookie(name) {
