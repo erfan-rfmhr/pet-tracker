@@ -386,6 +386,9 @@ pyrightconfig.json
 [Ll]ocal
 [Ss]cripts
 pyvenv.cfg
+pyenv
 pip-selfcheck.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django,pycharm,virtualenv
+static/
+web.config
