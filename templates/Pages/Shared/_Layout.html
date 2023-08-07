@@ -104,7 +104,7 @@
                         <li class="divider"></li>
                         <li>
 
-                            <a href="#" class="cursor-pointer" onclick="mLogout()">
+                            <a href="{% url 'account_logout' %}" class="cursor-pointer">
                                 <i class="icon-power"></i>
                                 Sign Out
                             </a>
@@ -237,7 +237,7 @@
                 </li>
 
                 <li>
-                    <a href="#" class="cursor-pointer" onclick="mLogout()">
+                    <a href="{% url 'account_logout' %}" class="cursor-pointer">
                         <i class="icon-power fw-bolder"></i>
                         Sign Out
                     </a>
