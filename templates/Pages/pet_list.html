@@ -59,7 +59,7 @@
                                         <td>{{ pet.serial_number }}</td>
                                         <td>{{ pet.petowner.user.username }}</td>
                                         <td>
-                                           <button class="btn btn-sm  DeletT" title="Delete"
+                                            <button class="btn btn-sm  DeletT" title="Delete"
                                                     onclick="delete_pet_btn({{ pet.id }}, '{{ pet.name }}')">
                                                 <i class="fa fa-remove fa-2x text-danger"></i>
                                             </button>
@@ -138,7 +138,7 @@
                                             <span class="input-group-addon">
                                             </span>
                                                 <input id="birthdateInput" type="date" name="birthdate"
-                                                       placeholder="Birthdate">
+                                                       placeholder="Birthdate" onfocus="this.showPicker()" required="">
                                             </div><!-- /.input-group -->
                                         </div><!-- /.form-group -->
                                     </div>

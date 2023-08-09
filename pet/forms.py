@@ -8,7 +8,7 @@ class PetModelForm(forms.ModelForm):
         model = PetModel
         fields = ('name', 'type', 'breed', 'age', 'birthdate', 'image', 'serial_number')
         widgets = {
-            'birthdate': forms.DateInput(attrs={'type': 'date'}),
+            'birthdate': forms.DateInput(attrs={'type': 'date', 'onfocus': 'this.showPicker()'}),
             'serial_number': forms.TextInput(attrs={'readonly': 'readonly'}),
             'image': forms.FileInput(attrs={'type': 'file', 'name': 'image', 'id': 'id_image'}),
         }
