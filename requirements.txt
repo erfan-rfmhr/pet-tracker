@@ -16,6 +16,8 @@ django-crispy-forms==2.0
 Django==4.2
 djangorestframework==3.14.0
 fabio==2023.6.0
+factory-boy==3.3.0
+Faker==19.3.0
 fonttools==4.41.1
 h11==0.14.0
 h5py==3.9.0
