@@ -11,7 +11,7 @@ class PetModel(models.Model):
     age = models.IntegerField()
     birthdate = models.DateField()
     image = models.ImageField(upload_to='images/', default='images/pet-logo.png')
-    serial_number = models.CharField(max_length=255)
+    serial_number = models.CharField(max_length=255, unique=True)
     petowner = models.ForeignKey(PetOwner, on_delete=models.CASCADE, related_name='pets')
 
     def __str__(self):
