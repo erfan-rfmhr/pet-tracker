@@ -37,41 +37,42 @@
 
             <div class="col-md-12">
                 <div class="logo-con m-t-10 m-b-10">
-                    <img src="{% static '' %}assets/images/IBT-LOGO2.png" style="max-width:50%"
+                    <img src="{% static 'assets/images/petziot-logo-1.png' %}" style="max-width:50%"
                          class="dark-logo center-block img-responsive" alt="logo">
 
                 </div><!-- /.logo-con -->
-                <h1 class="text-center m-b-20 mt-3 text-white logoTitle">PetzIoT</h1>
+                <img src="{% static 'assets/images/petziot-removebg-preview.png' %}" alt="petziot"
+                     class="img-responsive img-center">
                 <h1 class="text-center m-b-20 mt-3 Welcome_h">Welcome</h1>
                 <hr>
                 <div class="form-group">
 
                     <form method="post">
                         {% csrf_token %}
-                            <div class="form-group ">
-                                {{ form.login.label_tag }}
-                                <div class="input-group round">
+                        <div class="form-group ">
+                            {{ form.login.label_tag }}
+                            <div class="input-group round">
                                 <span class="input-group-addon">
                                     <i class="icon-user"></i>
                                 </span>
-                                    {{ form.login }}
-                                </div><!-- /.input-group -->
-                            </div><!-- /.form-group -->
-                            <div class="form-group">
-                                {{ form.password.label_tag }}
-                                <div class="input-group round">
+                                {{ form.login }}
+                            </div><!-- /.input-group -->
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                            {{ form.password.label_tag }}
+                            <div class="input-group round">
                                 <span class="input-group-addon">
                                     <i class="icon-lock"></i>
                                 </span>
-                                    {{ form.password }}
-                                </div><!-- /.input-group -->
-                            </div><!-- /.form-group -->
+                                {{ form.password }}
+                            </div><!-- /.input-group -->
+                        </div><!-- /.form-group -->
                         {{ form.non_field_errors }}
                         <div class="form-group ">
-                                <div class="input-group round">
-                                    {{ form.user_type }}
-                                </div><!-- /.input-group -->
-                            </div><!-- /.form-group -->
+                            <div class="input-group round">
+                                {{ form.user_type }}
+                            </div><!-- /.input-group -->
+                        </div><!-- /.form-group -->
                         <button id="btnLogin" class="btn btn-info btn-round btn-block" type="submit"> Login
                         </button>
                         <p class="text-center m-t-20">

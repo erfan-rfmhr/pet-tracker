@@ -37,27 +37,29 @@
 
             <div class="col-md-12">
                 <div class="logo-con m-t-10 m-b-10">
-                    <img src="{% static '' %}assets/images/IBT-LOGO2.png" style="max-width:50%"
+                    <img src="{% static 'assets/images/petziot-logo-1.png' %}" style="max-width:50%"
                          class="dark-logo center-block img-responsive" alt="logo">
 
                 </div><!-- /.logo-con -->
-                <h1 class="text-center m-b-20 mt-3 text-white logoTitle">PetzIoT</h1>
+                <img src="{% static 'assets/images/petziot-removebg-preview.png' %}" alt="petziot"
+                     class="img-center img-responsive">
                 <h1 class="text-center m-b-20 mt-3 Welcome_h"> Sign Out</h1>
                 <hr>
                 <div class="form-group">
+                    {% csrf_token %}
+
+                    <p>Are you sure you want to sign out?</p>
+
+                    <form method="post" action="{% url 'account_logout' %}">
                         {% csrf_token %}
-
-                        <p>Are you sure you want to sign out?</p>
-
-                        <form method="post" action="{% url 'account_logout' %}">
-                            {% csrf_token %}
-                            {% if redirect_field_value %}
-                                <input type="hidden" name="{{ redirect_field_name }}"
-                                       value="{{ redirect_field_value }}"/>
-                            {% endif %}
-                            <button class="btn btn-info btn-round btn-block" type="submit">Sign Out</button>
-                            <a href="{% url 'index' %}" class="btn btn-cyan btn-round btn-block mt-3" type="submit">Cancel</a>
-                        </form>
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}"
+                                   value="{{ redirect_field_value }}"/>
+                        {% endif %}
+                        <button class="btn btn-info btn-round btn-block" type="submit">Sign Out</button>
+                        <a href="{% url 'index' %}" class="btn btn-cyan btn-round btn-block mt-3"
+                           type="submit">Cancel</a>
+                    </form>
                     {# END FORM #}
                 </div>
             </div><!-- /.col-md-12 -->
