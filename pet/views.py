@@ -2,11 +2,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .forms import PetModelForm
-from .models import PetModel
+from .models import PetModel, PetTemperatureModel
+from .serializers import PetTemperatureSerializer, PetCoordinateSerializer
 
 
 class PetDeleteAPIView(APIView):
@@ -27,3 +29,13 @@ class PetListView(LoginRequiredMixin, generic.ListView):
     model = PetModel
     template_name = 'Pages/pet_list.html'
     context_object_name = 'pets'
+
+
+class PetTemperatureCreateAPIView(generics.CreateAPIView):
+    serializer_class = PetTemperatureSerializer
+    queryset = PetTemperatureModel.objects.all()
+
+
+class PetCoordinateCreateAPIView(generics.CreateAPIView):
+    serializer_class = PetCoordinateSerializer
+    queryset = PetTemperatureModel.objects.all()
