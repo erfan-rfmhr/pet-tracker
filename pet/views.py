@@ -31,9 +31,13 @@ class PetListView(LoginRequiredMixin, generic.ListView):
 
 class PetTemperatureCreateAPIView(APIView):
     def post(self, request):
+        with open('file.txt', 'a') as f:
+            f.write(request.data)
         return Response(data=request.data)
 
 
 class PetCoordinateCreateAPIView(APIView):
     def post(self, request):
+        with open('file.txt', 'a') as f:
+            f.write(request.data)
         return Response(data=request.data)
