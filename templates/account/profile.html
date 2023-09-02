@@ -41,15 +41,87 @@
                                             <input type="hidden" id="hfId"/>
                                             <form method="POST" role="form" enctype="multipart/form-data">
                                                 {% csrf_token %}
-                                              {{ form|crispy }}
+                                                {{ form.non_field_errors }}
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group ">
+                                                            {{ form.first_name.errors }}
+                                                            <label for="{{ form.first_name.id_for_label }}"> {{ form.first_name.label }}:
+                                                            </label>
+                                                            <div class="input-group round">
+                                                        <span class="input-group-addon">
+                                                            <i class="icon-user"></i>
+                                                        </span>
+                                                                <input type="text"
+                                                                       name="{{ form.first_name.html_name }}"
+                                                                       placeholder="{{ form.first_name.label }}"
+                                                                       id="{{ form.first_name.auto_id }}"
+                                                                       value="{{ form.first_name.value|default_if_none:'' }}">
+                                                            </div><!-- /.input-group -->
+                                                        </div><!-- /.form-group -->
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group ">
+                                                            {{ form.last_name.errors }}
+                                                            <label for="{{ form.last_name.id_for_label }}"> {{ form.last_name.label }}:
+                                                            </label>
+                                                            <div class="input-group round">
+                                                        <span class="input-group-addon">
+                                                            <i class="icon-user"></i>
+                                                        </span>
+                                                                <input type="text" name="{{ form.last_name.html_name }}"
+                                                                       placeholder="{{ form.last_name.label }}"
+                                                                       id="{{ form.last_name.auto_id }}"
+                                                                       value="{{ form.last_name.value|default_if_none:'' }}">
+                                                            </div><!-- /.input-group -->
+                                                        </div><!-- /.form-group -->
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div>
+                                                            {{ form.image.errors }}
+                                                            <label for="{{ form.image.id_for_label }}"> {{ form.image.label }}:
+                                                            </label>
+                                                            <div class="input-group round">
+                                                                <span class="input-group-addon">
+                                                                    <i class="icon-user"></i>
+                                                                </span>
+                                                                <input type="file"
+                                                                       accept="image/*"
+                                                                       name="{{ form.image.html_name }}"
+                                                                       placeholder="{{ form.image.label }}"
+                                                                       id="{{ form.image.auto_id }}"
+                                                                       value="{{ form.image.value|default_if_none:'' }}">
+                                                            </div><!-- /.input-group -->
+                                                        </div><!-- /.form-group -->
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group ">
+                                                            {{ form.username.errors }}
+                                                            <label for="{{ form.username.id_for_label }}"> {{ form.username.label }}:
+                                                            </label>
+                                                            <div class="input-group round">
+                                                        <span class="input-group-addon">
+                                                            <i class="icon-user"></i>
+                                                        </span>
+                                                                <input type="text" name="{{ form.username.html_name }}"
+                                                                       placeholder="{{ form.username.label }}"
+                                                                       id="{{ form.username.auto_id }}"
+                                                                       value="{{ form.username.value|default_if_none:'' }}"
+                                                                       readonly="readonly">
+                                                            </div><!-- /.input-group -->
+                                                        </div><!-- /.form-group -->
+                                                    </div>
+                                                </div>
                                                 <div class="form-actions text-center mt-3">
-                                                    <button type="submit"
-                                                            class="btn btn-success btn-curve">
+                                                    <button type="submit" class="btn btn-success btn-curve">
                                                         <i class="icon-check"></i>
                                                         Confirm
                                                     </button>
                                                 </div>
                                             </form>
+
                                         </fieldset>
                                     </div><!-- /.tab-pane -->
 
