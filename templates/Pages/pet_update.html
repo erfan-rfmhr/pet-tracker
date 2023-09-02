@@ -97,17 +97,18 @@
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group ">
-                                                            {{ form.age.errors }}
-                                                            <label for="{{ form.age.id_for_label }}"> {{ form.age.label }}:
+                                                            {{ form.birthdate.errors }}
+                                                            <label for="{{ form.birthdate.id_for_label }}"> {{ form.birthdate.label }}:
                                                             </label>
                                                             <div class="input-group round">
                                                         <span class="input-group-addon">
                                                             <i class="icon-user"></i>
                                                         </span>
-                                                                <input type="text" name="{{ form.age.html_name }}"
-                                                                       placeholder="{{ form.age.label }}"
-                                                                       id="{{ form.age.auto_id }}"
-                                                                       value="{{ form.age.value|default_if_none:'' }}">
+                                                                <input type="date" onfocus='this.showPicker()'
+                                                                       name="{{ form.birthdate.html_name }}"
+                                                                       placeholder="{{ form.birthdate.label }}"
+                                                                       id="{{ form.birthdate.auto_id }}"
+                                                                       value="{{ form.birthdate.value|date:"Y-m-d" }}">
                                                             </div><!-- /.input-group -->
                                                         </div><!-- /.form-group -->
                                                     </div>
@@ -131,25 +132,6 @@
                                                             </div><!-- /.input-group -->
                                                         </div><!-- /.form-group -->
                                                     </div>
-                                                    <div class="col">
-                                                        <div class="form-group ">
-                                                            {{ form.birthdate.errors }}
-                                                            <label for="{{ form.birthdate.id_for_label }}"> {{ form.birthdate.label }}:
-                                                            </label>
-                                                            <div class="input-group round">
-                                                        <span class="input-group-addon">
-                                                            <i class="icon-user"></i>
-                                                        </span>
-                                                                <input type="date" onfocus='this.showPicker()'
-                                                                       name="{{ form.birthdate.html_name }}"
-                                                                       placeholder="{{ form.birthdate.label }}"
-                                                                       id="{{ form.birthdate.auto_id }}"
-                                                                       value="{{ form.birthdate.value|date:"Y-m-d" }}">
-                                                            </div><!-- /.input-group -->
-                                                        </div><!-- /.form-group -->
-                                                    </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="col">
                                                         <div class="form-group ">
                                                             {{ form.serial_number.errors }}
