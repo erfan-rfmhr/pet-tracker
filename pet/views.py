@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 
 from .forms import PetModelForm
 from .models import PetModel
+from .serializers import TestSerializer
 
 
 class PetDeleteAPIView(APIView):
@@ -47,20 +48,24 @@ class PlainTextRenderer(renderers.BaseRenderer):
 
 
 class PetTemperatureCreateAPIView(APIView):
-    renderer_classes = (PlainTextRenderer,)
-    parser_classes = (PlainTextParser,)
 
     def post(self, request):
-        with open('file.txt', 'wb') as f:
-            f.write(request.data)
+        serializer = TestSerializer(data=request.data)
+        with open('file.txt', 'w') as f:
+            if not serializer.is_valid():
+                f.write('serializer is not valid')
+            else:
+                f.write(serializer.data.get('body'))
         return Response(data=request.data, status=status.HTTP_201_CREATED)
 
 
 class PetCoordinateCreateAPIView(APIView):
-    parser_classes = (PlainTextParser,)
-    renderer_classes = (PlainTextRenderer,)
 
     def post(self, request):
-        with open('file.txt', 'wb') as f:
-            f.write(request.data)
+        serializer = TestSerializer(data=request.data)
+        with open('file.txt', 'w') as f:
+            if not serializer.is_valid():
+                f.write('serializer is not valid')
+            else:
+                f.write(serializer.data.get('body'))
         return Response(data=request.data, status=status.HTTP_201_CREATED)
