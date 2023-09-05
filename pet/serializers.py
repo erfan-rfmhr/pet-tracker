@@ -3,10 +3,6 @@ from rest_framework import serializers
 from .models import PetModel, PetTemperatureModel, PetCoordinateModel
 
 
-class TestSerializer(serializers.Serializer):
-    body = serializers.CharField()
-
-
 class PetSerializer(serializers.ModelSerializer):
     petowner_username = serializers.CharField(source='petowner.user.username', read_only=True)
 
