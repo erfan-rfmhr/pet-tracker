@@ -2,14 +2,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
-from rest_framework import renderers, status
-from rest_framework.parsers import BaseParser
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .forms import PetModelForm
 from .models import PetModel
 from .serializers import PetCoordinateSerializer, PetTemperatureSerializer
+from .services.checksum import TemperatureCheckSumService
 
 
 class PetDeleteAPIView(APIView):
@@ -33,24 +33,33 @@ class PetListView(LoginRequiredMixin, generic.ListView):
 
 
 class PetTemperatureCreateAPIView(APIView):
-
     def post(self, request):
-        serializer = PetTemperatureSerializer(data=request.data)
-        with open('file.txt', 'w') as f:
-            if not serializer.is_valid():
-                f.write('serializer is not valid')
-            else:
-                f.write(serializer.data.get('body'))
-        return Response(data=request.data, status=status.HTTP_201_CREATED)
+        data = self.request.data.copy()
+        serial_number = data.pop('serial_number')[0]
+        data['pet'] = serial_number
+
+        serializer = PetTemperatureSerializer(data=data)
+        if not serializer.is_valid():
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        password = self.request.data.get('pass')
+        temperature = self.request.data.get('temperature')
+        serial_number = self.request.data.get('serial_number')
+
+        if TemperatureCheckSumService(password, temperature, serial_number).check():
+            serializer.save()
+            return Response(data={'message': 'success'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(data={'message': 'invalid password'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PetCoordinateCreateAPIView(APIView):
-
     def post(self, request):
-        serializer = PetCoordinateSerializer(data=request.data)
-        with open('file.txt', 'w') as f:
-            if not serializer.is_valid():
-                f.write('serializer is not valid')
-            else:
-                f.write(serializer.data.get('body'))
-        return Response(data=request.data, status=status.HTTP_201_CREATED)
+        data = self.request.data.copy()
+        serial_number = data.pop('serial_number')[0]
+        data['pet'] = serial_number
+
+        serializer = PetCoordinateSerializer(data=data)
+        if not serializer.is_valid():
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
