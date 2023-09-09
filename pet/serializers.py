@@ -20,6 +20,7 @@ class PetTemperatureSerializer(serializers.ModelSerializer):
         fields = ('temperature', 'pet')
 
     def to_internal_value(self, data):
+        data = data.copy()
         data.pop('application')
         data.pop('pass')
         return super().to_internal_value(data)
@@ -33,6 +34,7 @@ class PetCoordinateSerializer(serializers.ModelSerializer):
         fields = ('point', 'pet')
 
     def to_internal_value(self, data):
+        data = data.copy()
         data.pop('application')
         data.pop('pass')
         return super().to_internal_value(data)
