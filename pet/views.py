@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 
 from .forms import PetModelForm
 from .models import PetModel
-from .serializers import PetCoordinateSerializer
+from .serializers import PetCoordinateSerializer, PetTemperatureSerializer
 from .services.checksum import TemperatureCheckSumService
 
 
@@ -40,11 +40,11 @@ class PetTemperatureCreateAPIView(APIView):
 
         f = open('temperature.txt', 'a')
         f.write(str(data) + '\n')
-        # serializer = PetTemperatureSerializer(data=data)
-        # if not serializer.is_valid():
-        #     f.write('error' + '\n')
-        #     f.close()
-        #     return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer = PetTemperatureSerializer(data=data)
+        if not serializer.is_valid():
+            f.write('error' + '\n')
+            f.close()
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         # return Response(data=request.data, status=status.HTTP_200_OK)
 
         password = self.request.data.get('pass')
@@ -54,7 +54,7 @@ class PetTemperatureCreateAPIView(APIView):
 
         if TemperatureCheckSumService(password, temperature, serial_number).check():
             f.write('success' + '\n')
-            # serializer.save()
+            serializer.save()
             f.close()
             return Response(data={'message': 'success'}, status=status.HTTP_201_CREATED)
         else:
