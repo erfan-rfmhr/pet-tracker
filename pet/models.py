@@ -26,7 +26,7 @@ class PetModel(models.Model):
 
 class PetTemperatureModel(models.Model):
     pet = models.ForeignKey(PetModel, on_delete=models.CASCADE, related_name='temperatures')
-    temperature = models.DecimalField(max_digits=5, decimal_places=2)
+    temperature = models.DecimalField(max_digits=40, decimal_places=10)
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
 

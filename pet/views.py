@@ -38,9 +38,12 @@ class PetTemperatureCreateAPIView(APIView):
         serial_number = data.pop('serial_number')[0]
         data['pet'] = serial_number
 
-        serializer = PetTemperatureSerializer(data=data)
-        if not serializer.is_valid():
-            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        with open('temperature.txt', 'a') as f:
+            f.write(str(data) + '\n')
+            serializer = PetTemperatureSerializer(data=data)
+            if not serializer.is_valid():
+                return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # return Response(data=request.data, status=status.HTTP_200_OK)
 
         password = self.request.data.get('pass')
         temperature = self.request.data.get('temperature')

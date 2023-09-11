@@ -14,7 +14,7 @@ class TemperatureCheckSumService:
     def _generate_checksum(self) -> str:
         # initialize list
         temperature_list = list(self.temperature)
-        temperature_list.remove('.')
+        temperature_list.remove('.') if '.' in temperature_list else None
         serial_number_list = list(self.serial_number)[-5:]
 
         temp_ascii = self._convert_string_list_to_ascii(temperature_list)
@@ -28,4 +28,6 @@ class TemperatureCheckSumService:
 
     def check(self) -> bool:
         result = self._generate_checksum()
+        print(result)
+        print(self.password)
         return result == self.password
