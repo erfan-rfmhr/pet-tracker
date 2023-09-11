@@ -30,4 +30,8 @@ class TemperatureCheckSumService:
         result = self._generate_checksum()
         print(result)
         print(self.password)
-        return result == self.password
+        password = ''
+        b_password = bytes(self.password, 'utf-8')
+        for i in b_password:
+            password += str(i)
+        return result == password
