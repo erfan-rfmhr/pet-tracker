@@ -44,7 +44,7 @@ class PetTemperatureCreateAPIView(APIView):
         if not serializer.is_valid():
             f.write('error' + '\n')
             f.close()
-            return Response(data='Error41', status=status.HTTP_400_BAD_REQUEST)
+            return Response(data='Error41', status=status.HTTP_400_BAD_REQUEST, content_type='text/xml')
         # return Response(data=request.data, status=status.HTTP_200_OK)
 
         password = self.request.data.get('pass')
@@ -56,11 +56,11 @@ class PetTemperatureCreateAPIView(APIView):
             f.write('success' + '\n')
             serializer.save()
             f.close()
-            return Response(data='ReceiveSuccess', status=status.HTTP_201_CREATED)
+            return Response(data='ReceiveSuccess', status=status.HTTP_201_CREATED, content_type='text/xml')
         else:
             f.write('invalid password' + '\n')
             f.close()
-            return Response(data='Error40!', status=status.HTTP_400_BAD_REQUEST)
+            return Response(data='Error40!', status=status.HTTP_400_BAD_REQUEST, content_type='text/xml')
 
 
 class PetCoordinateCreateAPIView(APIView):
