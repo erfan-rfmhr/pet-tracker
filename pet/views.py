@@ -38,11 +38,12 @@ class PetTemperatureCreateAPIView(APIView):
         serial_number = data.pop('serial_number')[0]
         data['pet'] = serial_number
 
-        with open('temperature.txt', 'a') as f:
-            f.write(str(data) + '\n')
-            serializer = PetTemperatureSerializer(data=data)
-            if not serializer.is_valid():
-                return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        f = open('temperature.txt', 'a')
+        f.write(str(data) + '\n')
+        serializer = PetTemperatureSerializer(data=data)
+        if not serializer.is_valid():
+            f.write('error' + '\n')
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         # return Response(data=request.data, status=status.HTTP_200_OK)
 
         password = self.request.data.get('pass')
@@ -50,9 +51,11 @@ class PetTemperatureCreateAPIView(APIView):
         serial_number = self.request.data.get('serial_number')
 
         if TemperatureCheckSumService(password, temperature, serial_number).check():
+            f.write('success' + '\n')
             serializer.save()
             return Response(data={'message': 'success'}, status=status.HTTP_201_CREATED)
         else:
+            f.write('invalid password' + '\n')
             return Response(data={'message': 'invalid password'}, status=status.HTTP_400_BAD_REQUEST)
 
 
