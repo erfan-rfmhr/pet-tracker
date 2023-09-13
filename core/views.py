@@ -1,8 +1,11 @@
 from allauth.account.views import LoginView
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.views import generic
 
+from pet.models import PetTemperatureModel, PetModel
 from petowner.models import PetOwner
 from .forms import CustomLoginForm
 
@@ -55,3 +58,15 @@ class CustomLoginView(LoginView):
         # Otherwise, log in the user and redirect to the success URL
         login(self.request, user)
         return super().form_valid(form)
+
+
+class PetTemperatureDashboardView(LoginRequiredMixin, generic.ListView):
+    model = PetTemperatureModel
+    template_name = 'Pages/pet_temperature_dashboard.html'
+    context_object_name = 'temperatures'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['petowners'] = PetOwner.objects.all()
+        context['pets'] = PetModel.objects.all()
+        return context

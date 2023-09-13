@@ -138,8 +138,8 @@
    
     if (test_s != 0) {
 
-        $("#cmbCustomerName").val(test_s).change();
-        $("#cmbCustomerName").prop('disabled', true);
+        $("#cmbPetOwnerName").val(test_s).change();
+        $("#cmbPetOwnerName").prop('disabled', true);
     }
    
     let mydata = {
@@ -645,7 +645,7 @@ $("#btnSave1").click(function () {
               
                 //img: $("#txtimg").val(),
                 img: output.src.split('/').pop(),
-                CustomerId: $("#cmbCustomerName").val()
+                CustomerId: $("#cmbPetOwnerName").val()
 
 
 
@@ -1094,7 +1094,7 @@ function getData_Edit(mToken, mData, buildingId) {
             let mdata = response.building;
             $("#hfId").val(mdata.Id);
             $("#hfCustomerId").val(mdata.CustomerId);
-            $("#cmbCustomerName").val(mdata.CustomerId).change();
+            $("#cmbPetOwnerName").val(mdata.CustomerId).change();
             $("#txtLocation").val(mdata.Location);
             $("#txtBuildingName").val(mdata.BuildingName);
             $("#txtContractNo").val(mdata.ContractNo);

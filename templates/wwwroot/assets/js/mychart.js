@@ -3,7 +3,7 @@
 $(document).ready(function () {
     $("#chartsPage").addClass("current");
 
-    let customerid = $("#cmbCustomerName").val();;
+    let customerid = $("#cmbPetOwnerName").val();;
 
     fill_CustomerCmb(customerid);
 
@@ -1145,8 +1145,8 @@ function drawMyChart_old()
 
 
 
-/*$('#cmbBuildingName').on("select2:change", function (e) {*/
-    $('#cmbBuildingName').on("change", function (e) { //after Select
+/*$('#cmbPetName').on("select2:change", function (e) {*/
+    $('#cmbPetName').on("change", function (e) { //after Select
     // what you would like to happen
 
     var sensorId = $("#cmbSensorT").val();
@@ -1181,7 +1181,7 @@ function fill_Serial_combo(sensorId)
 {
 
     let buildings = [];
-    $('#cmbBuildingName :selected').each(function () {
+    $('#cmbPetName :selected').each(function () {
         var o = $(this);
         //console.log(o.text());
         //result[o.text()] = o.val();
@@ -1284,7 +1284,7 @@ function fill_Serial_combo(sensorId)
     return false;
 }
 
-$('#cmbCustomerName').on("select2:select", function (e) {
+$('#cmbPetOwnerName').on("select2:select", function (e) {
     // what you would like to happen
    
     var customerid = e.params.data.id;
@@ -1317,7 +1317,7 @@ function fill_CustomerCmb(customerid) {
             $('#cmbSerial')
                 .find('option')
                 .remove();
-            $('#cmbBuildingName')
+            $('#cmbPetName')
                 .find('option')
                 .remove();
 
@@ -1334,7 +1334,7 @@ function fill_CustomerCmb(customerid) {
 
                 if (i == 0) {
 
-                    $('#cmbBuildingName')
+                    $('#cmbPetName')
                         .find('option')
                         .end()
                         .append('<option value="' + row.Id + '">' + row.BuildingName.toString() + '</option>').val(row.Id)
@@ -1343,7 +1343,7 @@ function fill_CustomerCmb(customerid) {
 
                 else {
 
-                    $('#cmbBuildingName')
+                    $('#cmbPetName')
                         .find('option')
                         .end()
                         .append('<option value="' + row.Id + '">' + row.BuildingName.toString() + '</option>')
@@ -1352,7 +1352,7 @@ function fill_CustomerCmb(customerid) {
 
 
 
-                //$('#cmbBuildingName')
+                //$('#cmbPetName')
                 //    .find('option')
                 //    .end()
                 //    .append('<option value="' + row.Id + '">' + row.BuildingName.toString() + '</option>')

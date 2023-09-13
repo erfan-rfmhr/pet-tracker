@@ -5,7 +5,7 @@ $(document).ready(function () {
     $("#cmbSensorT").select2({
         dropdownParent: $("#recordModal")
     });
-    $("#cmbCustomerName").select2({
+    $("#cmbPetOwnerName").select2({
         dropdownParent: $("#recordModal")
     });
     
