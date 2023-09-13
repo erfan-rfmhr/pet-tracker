@@ -56,7 +56,7 @@ class PetTemperatureCreateAPIView(APIView):
             f.write('success' + '\n')
             serializer.save()
             f.close()
-            return Response(data='ReceiveSuccess'+' '*15, status=status.HTTP_200_OK, content_type='text/xml')
+            return Response(data='Success'+' '*15, status=status.HTTP_200_OK, content_type='text/xml')
         else:
             f.write('invalid password' + '\n')
             f.close()
