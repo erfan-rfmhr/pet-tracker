@@ -2,8 +2,9 @@ from allauth.account.views import LoginView
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.shortcuts import render
-from django.views import generic
+from django.views import generic, View
 
 from pet.models import PetTemperatureModel, PetModel
 from petowner.models import PetOwner
@@ -70,3 +71,14 @@ class PetTemperatureDashboardView(LoginRequiredMixin, generic.ListView):
         context['petowners'] = PetOwner.objects.all()
         context['pets'] = PetModel.objects.all()
         return context
+
+
+class GetPetInfoView(View):
+    def get(self, request, *args, **kwargs):
+        pet_id = request.GET.get('pet_id', None)
+        if pet_id is None:
+            data = {'success': False}
+        else:
+            pet_info = PetTemperatureModel.objects.filter(pet_id=pet_id).values('temperature', 'date')
+            data = {'success': True, 'pet_info': list(pet_info)}
+        return JsonResponse(data)
