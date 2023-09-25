@@ -79,6 +79,6 @@ class GetPetInfoView(View):
         if pet_id is None:
             data = {'success': False}
         else:
-            pet_info = PetTemperatureModel.objects.filter(pet_id=pet_id).values('temperature', 'date')
+            pet_info = PetTemperatureModel.objects.filter(pet_id=pet_id).values('temperature', 'date').order_by('-date')
             data = {'success': True, 'pet_info': list(pet_info)}
         return JsonResponse(data)
