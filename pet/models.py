@@ -33,6 +33,7 @@ class PetTemperatureModel(models.Model):
 
 class PetCoordinateModel(models.Model):
     pet = models.ForeignKey(PetModel, on_delete=models.CASCADE, related_name='coordinates')
-    point = models.DecimalField(max_digits=5, decimal_places=2)
+    latitude = models.DecimalField(max_digits=15, decimal_places=5)
+    longitude = models.DecimalField(max_digits=15, decimal_places=5)
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
