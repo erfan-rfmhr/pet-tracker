@@ -31,7 +31,7 @@ class PetCoordinateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PetCoordinateModel
-        fields = ('point', 'pet')
+        fields = ('latitude', 'longitude', 'pet')
 
     def to_internal_value(self, data):
         data = data.copy()
