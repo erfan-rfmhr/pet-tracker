@@ -82,3 +82,13 @@ class GetPetInfoView(View):
             pet_info = PetTemperatureModel.objects.filter(pet_id=pet_id).values('temperature', 'date').order_by('-date')
             data = {'success': True, 'pet_info': list(pet_info)}
         return JsonResponse(data)
+
+
+class GetPetsView(View):
+    def get(self, request, *args, **kwargs):
+        petowner_id = request.GET.get('petowner_id', None)
+
+        pets = PetModel.objects.filter(petowner_id=petowner_id).only('id', 'name').values('id', 'name')
+        data = {'pets': list(pets)}
+
+        return JsonResponse(data)

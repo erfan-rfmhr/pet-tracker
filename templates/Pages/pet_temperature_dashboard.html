@@ -51,9 +51,9 @@
                     <label for="cmbPetName">Pet</label>
                     <div class="input-group"><select class="form-control select2 curve" id="cmbPetName"
                                                      style="width:100% !important">
-                        {% for pet in pets %}
-                            <option value={{ pet.id }} data-owner-id={{ pet.petowner.user_id }}>{{ pet.name }}</option>
-                        {% endfor %}
+                        {#                        {% for pet in pets %}#}
+                        {#                            <option value={{ pet.id }} data-owner-id={{ pet.petowner.user_id }}>{{ pet.name }}</option>#}
+                        {#                        {% endfor %}#}
                     </select>
 
                     </div><!-- /.input-group -->
@@ -182,25 +182,6 @@
 
 
     <script>
-        document.getElementById("cmbPetOwnerName").addEventListener("change", function () {
-            var selectedOwnerId = $(this).val();
-            var firstPet = null;
-
-            $('#cmbPetName option').each(function () {
-                var ownerId = $(this).data('owner-id');
-                if (ownerId == selectedOwnerId) {
-                    $(this).show();
-                    if (!firstPet) {
-                        firstPet = $(this);
-                    }
-                } else {
-                    $(this).hide();
-                }
-            });
-            if (firstPet) {
-                $('#cmbPetName').prepend(firstPet);
-            }
-        });
 
         function petInfoTable() {
             console.log('load table');
@@ -243,9 +224,39 @@
             });
         }
 
-        $(document).ready(function(){
-        myVar = setInterval("petInfoTable()", 1000);
-    });
+        function getPets() {
+            console.log('get pets');
+            let petowner_id = document.getElementById("cmbPetOwnerName").value;
+            $.ajax({
+                url: '{% url 'dashboard_pets' %}',
+                data: {
+                    'petowner_id': petowner_id
+                },
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data.pets);
+                    let petList = document.getElementById("cmbPetName");
+                    petList.innerHTML = "";
+                    $.each(data.pets, function (index, element) {
+                        let option = document.createElement("option");
+                        option.value = element.id;
+                        option.text = element.name;
+                        petList.appendChild(option);
+                    });
+                }
+            });
+        }
+
+        document.getElementById("cmbPetOwnerName").addEventListener("change", function () {
+            getPets();
+            petInfoTable();
+        });
+
+        $(document).ready(function () {
+            getPets();
+            petInfoTable();
+            myVar = setInterval("petInfoTable()", 1000);
+        });
 
     </script>
 
