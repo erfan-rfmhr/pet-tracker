@@ -81,7 +81,13 @@
                     </div>
                 </div>
             </div>
-
+            <div class="col">
+{#            BEGIN THERMOMETER#}
+                <div id="thermometer">
+                    <div id="temperature"></div>
+                </div>
+{#            END THERMOMETER#}
+            </div>
         </div>
     </div>
 
@@ -90,6 +96,23 @@
             color: #f55145;
         }
 
+        {#BEGIN THERMOMETER STYLE#}
+        #thermometer {
+            width: 50px;
+            height: 200px;
+            background: #ccc;
+            border-radius: 25px;
+            position: relative;
+        }
+
+        #temperature {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(red, yellow, green);
+            transition: height 0.5s;
+        }
+        {#END THERMOMETER STYLE#}
 
         table {
             width: 100%;
@@ -182,9 +205,27 @@
 
 
     <script>
+        function getTopTemperature() {
+            var table = document.getElementById('petInfoTable');
+            if (table.rows.length > 0) {
+                var firstRow = table.rows[1];
+                var temperatureCell = firstRow.cells[0];
+                var topTemperature = temperatureCell.textContent || temperatureCell.innerText;
+                return topTemperature;
+            } else {
+                return null;
+            }
+        }
+
+        function setTemperature() {
+            var temp = getTopTemperature();
+            console.log(temp);
+            var thermometer = document.getElementById('temperature');
+            var newHeight = temp + "px";
+            thermometer.style.height = newHeight;
+        }
 
         function petInfoTable() {
-            console.log('load table');
             var petId = $("#cmbPetName").val();
             $.ajax({
                 url: '/dashboard/info/',
@@ -194,10 +235,8 @@
                 dataType: 'json',
                 success: function (data) {
                     if (data.success) {
-                        console.log(data.pet_info);
                         // hide table if data is empty
                         if (data.pet_info.length == 0) {
-                            console.log('empty');
                             $("#infoRow").hide();
                         }
                         else {
@@ -222,6 +261,7 @@
                     }
                 }
             });
+            setTemperature();
         }
 
         function getPets() {
