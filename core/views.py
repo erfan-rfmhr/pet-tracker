@@ -63,7 +63,7 @@ class CustomLoginView(LoginView):
 
 class PetTemperatureDashboardView(LoginRequiredMixin, generic.ListView):
     model = PetTemperatureModel
-    template_name = 'Pages/pet_temperature_dashboard.html'
+    template_name = 'Pages/dashboard.html'
     context_object_name = 'temperatures'
 
     def get_context_data(self, *, object_list=None, **kwargs):
