@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import generic, View
 
-from pet.models import PetTemperatureModel, PetModel
+from pet.models import PetTemperatureModel, PetModel, PetCoordinateModel
 from petowner.models import PetOwner
 from .forms import CustomLoginForm
 
@@ -79,8 +79,13 @@ class GetPetInfoView(View):
         if pet_id is None:
             data = {'success': False}
         else:
-            pet_info = PetTemperatureModel.objects.filter(pet_id=pet_id).values('temperature', 'date').order_by('-date')
-            data = {'success': True, 'pet_info': list(pet_info)}
+            pet_temperature_info = list(
+                PetTemperatureModel.objects.filter(pet_id=pet_id).values('temperature', 'date').order_by('-date'))
+            pet_coordinate_info = list(
+                PetCoordinateModel.objects.filter(pet_id=pet_id).values('latitude', 'longitude', 'date').order_by(
+                    '-date'))
+            pet_info = {'temperature_info': pet_temperature_info, 'coordinate_info': pet_coordinate_info}
+            data = {'success': True, 'pet_info': pet_info}
         return JsonResponse(data)
 
 
