@@ -76,19 +76,6 @@ class PetCoordinateCreateAPIView(APIView):
             f.write(str(serializer.errors) + '\n')
             f.close()
             return Response(data='Error41!'+' '*15, status=status.HTTP_200_OK, content_type='text/xml')
+        f.close()
+        serializer.save()
         return Response(data='Success'+' '*15, status=status.HTTP_200_OK, content_type='text/xml')
-
-        # password = self.request.data.get('pass')
-        # f.write(str(type(password)) + '\n')
-        # temperature = self.request.data.get('temperature')
-        # serial_number = self.request.data.get('serial_number')
-        #
-        # if TemperatureCheckSumService(password, temperature, serial_number).check():
-        #     f.write('success' + '\n')
-        #     serializer.save()
-        #     f.close()
-        #     return Response(data='Success'+' '*15, status=status.HTTP_200_OK, content_type='text/xml')
-        # else:
-        #     f.write('invalid password' + '\n')
-        #     f.close()
-        #     return Response(data='Error40!'+' '*15, status=status.HTTP_200_OK, content_type='text/xml')
