@@ -268,6 +268,8 @@
 
         var map; // Declare map variable outside the function, so it can be accessed by other functions
         var flag = true;
+        var last_longitude = 0;
+        var last_latitude = 0;
 
         function markMap() {
             var coordinates = getTopCoordinate();
@@ -285,8 +287,12 @@
                     maxZoom: 19,
                 }).addTo(map);
             }
-            // Add a marker to the map at the coordinates
-            L.marker([latitude, longitude]).addTo(map);
+            if (latitude !== last_latitude && longitude !== last_longitude) {
+                // Add a marker to the map at the coordinates
+                L.marker([latitude, longitude]).addTo(map);
+                last_latitude = latitude
+                last_longitude = longitude
+            }
         }
 
         function petInfoTable() {
