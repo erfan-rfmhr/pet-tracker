@@ -80,10 +80,11 @@ class GetPetInfoView(View):
             data = {'success': False}
         else:
             pet_temperature_info = list(
-                PetTemperatureModel.objects.filter(pet_id=pet_id).values('temperature', 'date').order_by('-date'))
+                PetTemperatureModel.objects.filter(pet_id=pet_id).values('temperature', 'date').order_by('-date',
+                                                                                                         '-time'))
             pet_coordinate_info = list(
                 PetCoordinateModel.objects.filter(pet_id=pet_id).values('latitude', 'longitude', 'date').order_by(
-                    '-date'))
+                    '-date', '-time'))
             pet_info = {'temperature_info': pet_temperature_info, 'coordinate_info': pet_coordinate_info}
             data = {'success': True, 'pet_info': pet_info}
         return JsonResponse(data)
