@@ -253,8 +253,8 @@
                 }
             } else {
                 return {
-                    'longitude': 0,
-                    'latitude': 0
+                    'longitude': null,
+                    'latitude': null
                 }
             }
         }
@@ -273,6 +273,10 @@
 
         function markMap() {
             var coordinates = getTopCoordinate();
+            // Check if coordinates are valid
+            if (coordinates.longitude == null || coordinates.latitude == null) {
+                return;
+            }
             var latitude = parseFloat(coordinates.latitude);
             var longitude = parseFloat(coordinates.longitude);
 
