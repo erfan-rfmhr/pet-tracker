@@ -270,6 +270,7 @@
         var flag = true;
         var last_longitude = 0;
         var last_latitude = 0;
+        var markers = L.layerGroup(); // Store markers in array so they can be removed later
 
         function markMap() {
             var coordinates = getTopCoordinate();
@@ -293,7 +294,9 @@
             }
             if (latitude !== last_latitude && longitude !== last_longitude) {
                 // Add a marker to the map at the coordinates
-                L.marker([latitude, longitude]).addTo(map);
+                markers.addLayer(L.marker([latitude, longitude]).addTo(map));
+                // Add the Layer Group to the map
+                markers.addTo(map);
                 last_latitude = latitude
                 last_longitude = longitude
             }
@@ -310,9 +313,10 @@
                 success: function (data) {
                     if (data.success) {
                         // hide table if data is empty
-                        if (data.pet_info.length == 0) {
+                        if (Object.keys(data.pet_info.coordinate_info).length == 0 && Object.keys(data.pet_info.temperature_info).length == 0) {
                             $("#temperatureInfoRow").hide();
                             $("#coordinateInfo").hide();
+                            return;
                         } else {
                             $("#temperatureInfoRow").show();
                             $("#coordinateInfo").show();
@@ -378,10 +382,21 @@
             });
         }
 
+        function restartMap() {
+            // Remove all markers
+            markers.clearLayers();
+            // Reset last_latitude and last_longitude to restart marking map from the beginning
+            last_latitude = 0;
+            last_longitude = 0;
+        }
+
         document.getElementById("cmbPetOwnerName").addEventListener("change", function () {
+            restartMap();
             getPets();
             petInfoTable();
         });
+
+        document.getElementById("cmbPetName").addEventListener("change", restartMap);
 
         $(document).ready(function () {
             getPets();

@@ -308,61 +308,6 @@
         }, 10);
     });
 
-    $('#buildingDatatable').on('click', '.BuildingT', function () {
-        var data = activityTable.row($(this).parents('tr')).data();
-
-       
-
-        let m_location = data.Location;
-
-        let locat = m_location.split(",");
-
-        if (!locat || locat.length != 2)
-        {
-            swal({
-                type: 'error',
-                title: 'error',
-                text: 'Invalid Location',
-                //text: 'The maximum number of selectable Sensor Serials is 6',
-                timer: 6000
-            }).catch(swal.noop);
-            return false;
-
-        }
-      
-        let m_lat = parseFloat(locat[0]);
-        let m_lng = parseFloat(locat[1]);
-       
-
-      
-
-
-        var lat = m_lat;
-        var lon = m_lng;
-
-     
-        map.setView(new L.LatLng(lat, lon), 11);
-
-        marker = L.marker([lat, lon]).addTo(map);
-        map.panTo(new L.LatLng(lat, lon));
-        marker.bindPopup(data.BuildingName).openPopup();
-
-        $("#MapModalTitle").text(data.BuildingName + " (" + m_lat + " , " + m_lng + ")");
-        let myModal = new bootstrap.Modal($('#MapModal'))
-        myModal.show();
-       
-
-
-
-    });
-
-
-    $('#buildingDatatable').on('click', '.DeletT', function () {
-        var data = activityTable.row($(this).parents('tr')).data();
-        DeleteCustomer(data);
-        //alert("The ID is: " + data.Id);
-    });
-
 
 
 
