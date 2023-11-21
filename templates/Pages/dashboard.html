@@ -267,7 +267,7 @@
         }
 
         var map; // Declare map variable outside the function, so it can be accessed by other functions
-        var flag = true;
+        var flag = true; // Flag to check if map is supposed to be initialized
         var last_longitude = 0;
         var last_latitude = 0;
         var markers = L.layerGroup(); // Store markers in array so they can be removed later
@@ -282,7 +282,7 @@
             var longitude = parseFloat(coordinates.longitude);
 
             // Check if map is already initialized
-            if (!map && flag) {
+            if (flag) {
                 flag = false;
                 // Initialize the map with the coordinates
                 map = L.map('map').setView([latitude, longitude], 13);
@@ -388,6 +388,7 @@
             // Reset last_latitude and last_longitude to restart marking map from the beginning
             last_latitude = 0;
             last_longitude = 0;
+            flag = true;
         }
 
         document.getElementById("cmbPetOwnerName").addEventListener("change", function () {
