@@ -297,6 +297,7 @@
                 markers.addLayer(L.marker([latitude, longitude]).addTo(map));
                 // Add the Layer Group to the map
                 markers.addTo(map);
+                map.setView([latitude, longitude]); // Move the map to the new marker
                 last_latitude = latitude
                 last_longitude = longitude
             }
@@ -388,7 +389,7 @@
             // Reset last_latitude and last_longitude to restart marking map from the beginning
             last_latitude = 0;
             last_longitude = 0;
-            flag = true;
+            {#flag = true;#}
         }
 
         document.getElementById("cmbPetOwnerName").addEventListener("change", function () {
