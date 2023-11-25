@@ -303,6 +303,56 @@
             }
         }
 
+        function createTables(data) {
+            console.log('createTables');
+            if (data.success) {
+                // hide table if data is empty
+                if (Object.keys(data.pet_info.coordinate_info).length == 0 && Object.keys(data.pet_info.temperature_info).length == 0) {
+                    $("#temperatureInfoRow").hide();
+                    $("#coordinateInfo").hide();
+                    return;
+                } else {
+                    $("#temperatureInfoRow").show();
+                    $("#coordinateInfo").show();
+                }
+                var table = $("#petInfoTable");
+                table.empty();  // Clear the table
+                var headers = $("<thead></thead>");
+                headers.append("<tr><th>Temperature</th><th>Date</th></tr>")
+                table.append(headers);
+                var body = $("<tbody></tbody>");
+                table.append(body);
+
+                $.each(data.pet_info.temperature_info, function (index, element) {
+                    var row = $("<tr></tr>");
+                    row.append($("<td></td>").text(element.temperature));
+                    row.append($("<td></td>").text(element.date));
+                    table.append(row);
+                });
+
+                var coordinate_table = $("#petCoordinateTable");
+                coordinate_table.empty();  // Clear the table
+                var headers = $("<thead></thead>");
+                headers.append("<tr><th>Longitude</th><th>Latitude</th><th>Date</th></tr>")
+                coordinate_table.append(headers);
+                var body = $("<tbody></tbody>");
+                coordinate_table.append(body);
+
+                $.each(data.pet_info.coordinate_info, function (index, element) {
+                    var row = $("<tr></tr>");
+                    row.append($("<td></td>").text(element.longitude));
+                    row.append($("<td></td>").text(element.latitude));
+                    row.append($("<td></td>").text(element.date));
+                    coordinate_table.append(row);
+                });
+                setTemperature();
+                markMap();
+            } else {
+                alert("Error retrieving pet information.");
+            }
+
+        }
+
         function petInfoTable() {
             var petId = $("#cmbPetName").val();
             $.ajax({
@@ -312,57 +362,13 @@
                 },
                 dataType: 'json',
                 success: function (data) {
-                    if (data.success) {
-                        // hide table if data is empty
-                        if (Object.keys(data.pet_info.coordinate_info).length == 0 && Object.keys(data.pet_info.temperature_info).length == 0) {
-                            $("#temperatureInfoRow").hide();
-                            $("#coordinateInfo").hide();
-                            return;
-                        } else {
-                            $("#temperatureInfoRow").show();
-                            $("#coordinateInfo").show();
-                        }
-                        var table = $("#petInfoTable");
-                        table.empty();  // Clear the table
-                        var headers = $("<thead></thead>");
-                        headers.append("<tr><th>Temperature</th><th>Date</th></tr>")
-                        table.append(headers);
-                        var body = $("<tbody></tbody>");
-                        table.append(body);
-
-                        $.each(data.pet_info.temperature_info, function (index, element) {
-                            var row = $("<tr></tr>");
-                            row.append($("<td></td>").text(element.temperature));
-                            row.append($("<td></td>").text(element.date));
-                            table.append(row);
-                        });
-
-                        var coordinate_table = $("#petCoordinateTable");
-                        coordinate_table.empty();  // Clear the table
-                        var headers = $("<thead></thead>");
-                        headers.append("<tr><th>Longitude</th><th>Latitude</th><th>Date</th></tr>")
-                        coordinate_table.append(headers);
-                        var body = $("<tbody></tbody>");
-                        coordinate_table.append(body);
-
-                        $.each(data.pet_info.coordinate_info, function (index, element) {
-                            var row = $("<tr></tr>");
-                            row.append($("<td></td>").text(element.longitude));
-                            row.append($("<td></td>").text(element.latitude));
-                            row.append($("<td></td>").text(element.date));
-                            coordinate_table.append(row);
-                        });
-                        setTemperature();
-                        markMap();
-                        var coor_table = document.getElementById('petCoordinateTable');
-                    } else {
-                        alert("Error retrieving pet information.");
-                    }
+                    createTables(data);
                 }
             });
         }
 
         function getPets() {
+            console.log('getPets');
             let petowner_id = document.getElementById("cmbPetOwnerName").value;
             $.ajax({
                 url: '{% url 'dashboard_pets' %}',
@@ -379,6 +385,7 @@
                         option.text = element.name;
                         petList.appendChild(option);
                     });
+                    updateStreamingEndpoint();
                 }
             });
         }
@@ -395,14 +402,45 @@
         document.getElementById("cmbPetOwnerName").addEventListener("change", function () {
             restartMap();
             getPets();
-            petInfoTable();
         });
 
-        document.getElementById("cmbPetName").addEventListener("change", restartMap);
+
+        // Define a function to update the streaming endpoint and EventSource connection
+        let eventSource = null;
+
+        function updateStreamingEndpoint() {
+
+            // Create a new EventSource connection
+            let petId = $("#cmbPetName").val();
+            let streamingUrl = `{% url 'dashboard_stream' %}?pet_id=${petId}`;
+            console.log('petid', petId);
+
+            // Close the existing EventSource connection if it exists
+            if (eventSource !== null) {
+                eventSource.close();
+            }
+            eventSource = new EventSource(streamingUrl)
+
+            // Handle incoming data updates
+            console.log('eventSource', eventSource);
+            eventSource.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                console.log('on message');
+                restartMap();
+                createTables(data);
+            };
+
+            // Handle connection errors
+            eventSource.onerror = (error) => {
+                console.error('Error connecting to streaming endpoint:', error);
+            };
+        }
+
+        // Update the streaming endpoint whenever the menu selection changes
+        document.getElementById("cmbPetName").addEventListener("change", updateStreamingEndpoint);
 
         $(document).ready(function () {
             getPets();
-            myVar = setInterval("petInfoTable()", 1000);
         });
 
     </script>

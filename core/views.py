@@ -1,8 +1,13 @@
+import datetime
+import json
+import time
+from decimal import Decimal
+
 from allauth.account.views import LoginView
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
+from django.http import JsonResponse, StreamingHttpResponse
 from django.shortcuts import render
 from django.views import generic, View
 
@@ -98,3 +103,42 @@ class GetPetsView(View):
         data = {'pets': list(pets)}
 
         return JsonResponse(data)
+
+
+class CustomEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, (Decimal, datetime.date)):
+            return str(obj)
+        return super(CustomEncoder, self).default(obj)
+
+
+def dashboard_stream(request, *args, **kwargs):
+    pet_id = request.GET.get('pet_id', None)
+
+    # Define a generator function to produce data updates
+    def data_generator():
+        while True:
+            # Fetch the latest pet temperature and coordinate information
+            pet_temperature_info = list(
+                PetTemperatureModel.objects.filter(pet_id=pet_id).values('temperature', 'date').order_by('-date',
+                                                                                                         '-time')[:10])
+            pet_coordinate_info = list(
+                PetCoordinateModel.objects.filter(pet_id=pet_id).values('latitude', 'longitude', 'date').order_by(
+                    '-date', '-time')[:10])
+
+            # Combine the information into a dictionary
+            pet_info = {'temperature_info': pet_temperature_info, 'coordinate_info': pet_coordinate_info}
+            data = {'success': True, 'pet_info': pet_info}
+
+            data_str = json.dumps(data, cls=CustomEncoder)
+
+            sse = f"data: {data_str}\n\n"
+
+            # Yield the data dictionary as an update
+            yield sse
+
+            # Wait for a short interval before generating the next update
+            time.sleep(1)
+
+    # Use Django HttpStreaming to stream the data updates
+    return StreamingHttpResponse(data_generator(), content_type='text/event-stream')
