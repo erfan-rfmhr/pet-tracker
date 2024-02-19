@@ -7,6 +7,7 @@ build-job:
   stage: build
   image: docker.arvancloud.ir/python:slim
   script:
+    - ls -al
     - pip install -r requirements.txt
   tags:
     - pet
