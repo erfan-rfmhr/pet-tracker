@@ -11,12 +11,11 @@ stages:
   - deploy
 build:
   stage: build
-  before_script: 
-    - DOCKER_HOST=tcp://$(ip -4 route show default | cut -d " " -f 3 )
+#  before_script: 
+ #   - DOCKER_HOST=tcp://$(ip -4 route show default | cut -d " " -f 3 )
   script:
     - docker info
     - docker build -t my-docker-image .
-#    - docker run my-docker-image /script/to/run/tests
   tags:
     - pet
 deploy-job:      
