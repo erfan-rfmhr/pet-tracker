@@ -1,7 +1,7 @@
 default:
-  image: docker.arvancloud.ir/docker:24.0.5
+  image: docker:24.0.5
   services:
-    - docker.arvancloud.ir/docker:24.0.5-dind
+    - docker:24.0.5-dind
   before_script:
     - DOCKER_HOST=tcp://$(ip -4 route show default | cut -d " " -f 3 )
     - docker info
@@ -9,17 +9,8 @@ stages:
   - build
   - test
   - deploy
-build-job:
-  
-  stage: build
-  image: docker.arvancloud.ir/python:slim
-  script:
-    - pip install -r requirements.txt
-  tags:
-    - pet
 build:
   stage: build
-  image: docker.arvancloud.ir/docker:24.0.5
   before_script: 
     - DOCKER_HOST=tcp://$(ip -4 route show default | cut -d " " -f 3 )
   script:
