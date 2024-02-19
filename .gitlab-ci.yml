@@ -2,8 +2,8 @@ default:
   image: docker:24.0.5
   services:
     - docker:24.0.5-dind
-  before_script:
-    - DOCKER_HOST=tcp://$(ip -4 route show default | cut -d " " -f 3 )
+ # before_script:
+  #  - DOCKER_HOST=tcp://$(ip -4 route show default | cut -d " " -f 3 )
     - docker info
 stages:
   - build
@@ -11,8 +11,8 @@ stages:
   - deploy
 build:
   stage: build
-#  before_script: 
- #   - DOCKER_HOST=tcp://$(ip -4 route show default | cut -d " " -f 3 )
+  before_script: 
+    - DOCKER_HOST=tcp://$(ip -4 route show default | cut -d " " -f 3 )
   script:
     - docker info
     - docker build -t my-docker-image .
