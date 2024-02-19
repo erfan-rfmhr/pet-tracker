@@ -1,7 +1,7 @@
 default:
-  image: docker:24.0.5
+  image: docker.arvancloud.ir/docker:24.0.5
   services:
-    - docker:24.0.5-dind
+    - docker.arvancloud.ir/docker:24.0.5-dind
   before_script:
     - DOCKER_HOST=tcp://$(ip -4 route show default | cut -d " " -f 3 )
     - docker info
@@ -19,6 +19,7 @@ build-job:
     - pet
 build:
   stage: build
+  image: docker.arvancloud.ir/docker:24.0.5
   before_script: 
     - DOCKER_HOST=tcp://$(ip -4 route show default | cut -d " " -f 3 )
   script:
