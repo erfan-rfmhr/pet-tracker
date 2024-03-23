@@ -13,10 +13,10 @@ RUN python -m pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN chmod 777 entry.sh
+RUN python manage.py migrate
 
-RUN ./entry.sh
+RUN python manage.py dummydata 2 2
 
 EXPOSE 8000
 
-CMD ["uvicorn","config.asgi:application","--host","0.0.0.0","--port","8000","--reload"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
