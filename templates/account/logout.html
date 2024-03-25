@@ -46,12 +46,12 @@
                 <h1 class="text-center m-b-20 mt-3 Welcome_h"> Sign Out</h1>
                 <hr>
                 <div class="form-group">
-                    {% csrf_token %}
+                    {#                    {% csrf_token %}#}
 
                     <p>Are you sure you want to sign out?</p>
 
                     <form method="post" action="{% url 'account_logout' %}">
-                        {% csrf_token %}
+                        {#                        {% csrf_token %}#}
                         {% if redirect_field_value %}
                             <input type="hidden" name="{{ redirect_field_name }}"
                                    value="{{ redirect_field_value }}"/>
