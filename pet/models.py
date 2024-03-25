@@ -26,11 +26,7 @@ class PetModel(models.Model):
 
 class PetTemperatureModel(models.Model):
     pet = models.ForeignKey(PetModel, on_delete=models.CASCADE, related_name='temperatures')
-<<<<<<< Updated upstream
-    temperature = models.DecimalField(max_digits=4, decimal_places=2)
-=======
     temperature = models.DecimalField(max_digits=25, decimal_places=10)
->>>>>>> Stashed changes
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
 
