@@ -41,7 +41,6 @@
                                     <th>Name</th>
                                     <th>Type</th>
                                     <th>Breed</th>
-                                    <th>Age</th>
                                     <th>Birthdate</th>
                                     <th>Image</th>
                                     <th>ID</th>
@@ -52,7 +51,6 @@
                                         <td>{{ pet.name }}</td>
                                         <td>{{ pet.type }}</td>
                                         <td>{{ pet.breed }}</td>
-                                        <td>{{ pet.age }}</td>
                                         <td>{{ pet.birthdate }}</td>
                                         <td><img src="{{ pet.image.url }}" alt="pet image" width="100px"></td>
                                         <td>{{ pet.serial_number }}</td>
@@ -136,18 +134,23 @@
                                             <div class="input-group round">
                                             <span class="input-group-addon">
                                             </span>
-                                                <input id="breedInput" type="text" name="breed" placeholder="Breed">
+                                            <select id="breedInput" name="breed" placeholder="Breed" style="width: 10000">
+                                            <option value=dog>dog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                            <option value=cat>cat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                            <option value=fish>fish&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                            </select>
                                             </div><!-- /.input-group -->
                                         </div><!-- /.form-group -->
                                     </div>
                                     <div class="col">
                                         <div class="form-group ">
-                                            <label for="ageInput"> Age:
+                                            <label for="serialnumberInput"> ID Number:
                                             </label>
                                             <div class="input-group round">
                                             <span class="input-group-addon">
                                             </span>
-                                                <input id="ageInput" type="number" name="age" placeholder="Age">
+                                                <input id="serialnumberInput" type="text" name="serial_number"
+                                                placeholder="ID Number">
                                             </div><!-- /.input-group -->
                                         </div><!-- /.form-group -->
                                     </div>
@@ -166,16 +169,6 @@
                                         </div><!-- /.form-group -->
                                     </div>
                                     <div class="col">
-                                        <div class="form-group ">
-                                            <label for="serialnumberInput"> ID Number:
-                                            </label>
-                                            <div class="input-group round">
-                                            <span class="input-group-addon">
-                                            </span>
-                                                <input id="serialnumberInput" type="text" name="serial_number"
-                                                       placeholder="ID Number">
-                                            </div><!-- /.input-group -->
-                                        </div><!-- /.form-group -->
                                     </div>
                                 </div>
                                 <div class="row">

@@ -76,7 +76,7 @@
                     <a href="#" class="dropdown-toggle dropdown-hover" data-bs-toggle="dropdown">
 
                         <img id="imgProfile1"
-                             src="{% static '' %}{{ user.image }}"
+                             src="{% static '' %}{{ user.image }}" width="55" height="55"
                              alt="profile image" class="img-circle img-responsive img_profile_Right VDimgUser">
 
                         <span class="VDUser">{{ user.username }}</span>
@@ -127,7 +127,7 @@
 
             <div class="user-box">
                 <a href="#">
-                    <img id="imgProfile2" src="{% static '' %}{{ user.image }}" alt="profile image"
+                    <img id="imgProfile2" src="{% static '' %}{{ user.image }}" alt="profile image" width="150" height="150"
                          class="img-circle img-responsive img_profile_Menu VDimgUser">
                 </a>
                 <div class="user-details">
@@ -142,15 +142,15 @@
 
                 <li>
                     <a href="http://petziot.com/" target="_blank" class="cursor-pointer">
-                        <i class="icon-globe"></i>
-                        <span>Web Site</span>
+                        <img src="{% static 'assets/images/mypetzLogo1.png' %}" alt="petziot.com" width="30" height="30">
+                        <span>petziot.com</span>
                     </a>
 
                 </li>
 
                 <li>
                     <a href="{% url 'dashboard' %}" class="" id="DashboardPage">
-                        <i class="fa fa-dashboard"></i>
+                        <i class="fa fa-bar-chart"></i>
                         <span>Dashboard</span>
                     </a>
 
@@ -159,7 +159,7 @@
 
                 <li>
                     <a href="{% url 'index' %}" class="" id="CustomersPage">
-                        <i class="fa fa-home"></i>
+                        <i class="fa fa-users"></i>
                         {% if user.is_staff %}
                             <span>Pet owners</span>
                         {% endif %}
@@ -169,24 +169,22 @@
 
                 <li>
                     <a href="{% url 'pet:list' %}" class="">
-                        <img src="{% static 'assets/images/paw.png' %}" alt="paw" width="25">
+                        <i class="fa fa-paw"></i>
                         <span>Pets</span>
                     </a>
-
                 </li>
 
-
                 <li>
-                    <a href="#" class="" id="ReportsPage" onclick="NoExistWebSite()">
-                        <i class="icon-chart"></i>
-                        <span>Reports</span>
+                    <a href="#" class="" id="PetGPT" onclick="NoExistWebSite()">
+                        <img src="{% static 'assets/images/petgpt.png' %}" alt="PetGPT width="25" height="25">
+                        <span> PetGPT</span>
                     </a>
 
                 </li>
                 <li>
                     <a href="{% url 'account_logout' %}" class="cursor-pointer">
                         <i class="icon-power fw-bolder"></i>
-                        Sign Out
+                        <span>Sign Out</span>
                     </a>
                 </li>
             </ul><!-- /#side-menu -->

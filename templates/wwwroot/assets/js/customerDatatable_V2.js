@@ -31,7 +31,6 @@
             { "data": "Name", "name": "Name", "autoWidth": true },
             { "data": "Family", "name": "Family", "autoWidth": true },
             { "data": "NationalCode", "name": "NationalCode", "autoWidth": true },
-            { "data": "Age", "name": "Age", "autoWidth": true },
             { "data": "DateOfExam", "name": "DateOfExam", "autoWidth": true },
             {
                 "render": function (data, row) {
