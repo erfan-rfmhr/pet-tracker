@@ -1,7 +1,11 @@
+import csv
+
 from allauth.account.views import LoginView
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
+from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import generic, View
@@ -98,3 +102,47 @@ class GetPetsView(View):
         data = {'pets': list(pets)}
 
         return JsonResponse(data)
+
+
+class GetReportsView(View):
+    def get(self, request):
+        # get temperatures and coordinates, paginate and add to context
+        temperatures = PetTemperatureModel.objects.all().order_by('-date', '-time')
+        coordinates = PetCoordinateModel.objects.all().order_by('-date', '-time')
+        # combine the two querysets
+        combined = list(temperatures) + list(coordinates)
+        # sort the combined list by date and time
+        combined.sort(key=lambda x: (x.date, x.time), reverse=True)
+        # paginate the combined list
+        paginator = Paginator(combined, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context = {
+            'page_obj': page_obj
+        }
+        return render(request, 'Pages/reports.html', context=context)
+
+
+def export_csv(request):
+    temperatures = PetTemperatureModel.objects.all().order_by('-date', '-time')
+    coordinates = PetCoordinateModel.objects.all().order_by('-date', '-time')
+    # combine the two query sets
+    combined = list(temperatures) + list(coordinates)
+    # sort the combined list by date and time
+    combined.sort(key=lambda x: (x.date, x.time), reverse=True)
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="pet_data.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Pet Name', 'Latitude', 'Longitude', 'Temperature'])
+
+    for obj in combined:
+        writer.writerow([
+            obj.pet.name,
+            obj.latitude if hasattr(obj, "latitude") else '',
+            obj.longitude if hasattr(obj, "longitude") else '',
+            obj.temperature if hasattr(obj, "temperature") else ''
+        ])
+
+    return response

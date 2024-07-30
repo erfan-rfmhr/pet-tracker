@@ -1,0 +1,39 @@
+{% extends 'Pages/Shared/_Layout.html' %}
+{% block PageContent %}
+    <div id="page-content">
+        <h1>Reports</h1>
+
+        <a href="{% url 'export_csv' %}" class="btn btn-primary rounded mt-1">Export to CSV</a>
+
+        <table id="report-table" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Pet Name</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Temperature</th>
+            </tr>
+            </thead>
+            {% for obj in page_obj.object_list %}
+                <tr>
+                    <td>{{ obj.pet.name }}</td>
+                    {% if obj.latitude != None %}
+                        <td>{{ obj.latitude }}</td>
+                    {% else %}
+                        <td>None</td>
+                    {% endif %}
+                    {% if obj.longitude != None %}
+                        <td>{{ obj.longitude }}</td>
+                    {% else %}
+                        <td>None</td>
+                    {% endif %}
+                    <td>{{ obj.temperature }}</td>
+                </tr>
+
+            {% endfor %}
+        </table>
+
+    </div>
+
+  
+{% endblock PageContent %}

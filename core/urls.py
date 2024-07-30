@@ -8,5 +8,7 @@ urlpatterns = [
     path('login/', views.CustomLoginView.as_view(), name='account_login'),
     path('dashboard/', views.PetTemperatureDashboardView.as_view(), name='dashboard'),
     path('dashboard/info/', views.GetPetInfoView.as_view(), name='dashboard_info'),
-    path('dashboard/pets/', views.GetPetsView.as_view(), name='dashboard_pets')
+    path('dashboard/pets/', views.GetPetsView.as_view(), name='dashboard_pets'),
+    path('reports/', views.GetReportsView.as_view(), name='reports'),
+    path('export-csv/', views.export_csv, name='export_csv'),
 ]
