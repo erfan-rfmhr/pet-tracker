@@ -1,9 +1,11 @@
+from random import choice
+
 import factory
 from factory.django import DjangoModelFactory
-from random import choice
+from faker import Faker
+
 from petowner.factories import PetOwnerFactory
 from .models import PetModel
-
 
 DOG_BREEDS = (
     'labrador retriever',
@@ -18,20 +20,21 @@ CAT_BREEDS = (
     'british shorthair',
 )
 BIRD_BREEDS = (
-    'Red factor canary',
+    'Red canary',
     'Love bird',
     'Cockatiel'
 )
 
+fake = Faker()
+
 
 class PetModelFactory(DjangoModelFactory):
-
     class Meta:
         model = PetModel
         # Assuming 'serial_number' is a unique field in PetModel
         django_get_or_create = ('serial_number',)
 
-    name = factory.Sequence(lambda n: f'pet{n + 1}')
+    name = fake.first_name()
     type = factory.Faker('random_element', elements=('dog', 'cat', 'bird',))
     age = factory.Faker('random_int', min=0, max=20)
     birthdate = factory.Faker('date_this_century')
