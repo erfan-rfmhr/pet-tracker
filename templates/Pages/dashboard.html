@@ -402,7 +402,8 @@
 
         $(document).ready(function () {
             getPets();
-            myVar = setInterval("petInfoTable()", 1000);
+            setTimeout("petInfoTable()", 1000);
+            myVar = setInterval("petInfoTable()", 5000);
         });
 
     </script>
