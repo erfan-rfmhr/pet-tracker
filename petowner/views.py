@@ -38,7 +38,7 @@ class PetOwnerCreateAPIView(generics.CreateAPIView):
         data = serializer.validated_data
         user = get_user_model().objects.create_user(username=data['username'], password=data['password'],
                                                     first_name=data['first_name'], last_name=data['last_name'],
-                                                    image=data['image'])
+                                                    image=data.get('image') if 'image' in data else '')
         PetOwner.objects.create(user=user, phone=data['phone'], address=data['address'], )
 
 

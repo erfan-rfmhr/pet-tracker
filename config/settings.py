@@ -159,3 +159,9 @@ LOGOUT_REDIRECT_URL = 'account_login'
 
 CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'core.auth.CsrfExemptSessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ],
+}
