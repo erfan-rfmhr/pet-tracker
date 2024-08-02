@@ -332,7 +332,7 @@
 
                         $.each(data.pet_info.temperature_info, function (index, element) {
                             var row = $("<tr></tr>");
-                            row.append($("<td></td>").text(element.temperature));
+                            row.append($("<td></td>").text(Number(element.temperature).toFixed(2)));
                             row.append($("<td></td>").text(element.date));
                             table.append(row);
                         });
@@ -347,8 +347,10 @@
 
                         $.each(data.pet_info.coordinate_info, function (index, element) {
                             var row = $("<tr></tr>");
-                            row.append($("<td></td>").text(element.longitude));
-                            row.append($("<td></td>").text(element.latitude));
+                            let longitude = parseFloat(Number(element.longitude).toFixed(2))
+                            let latitude = parseFloat(Number(element.latitude).toFixed(2))
+                            row.append($("<td></td>").text(longitude));
+                            row.append($("<td></td>").text(latitude));
                             row.append($("<td></td>").text(element.date));
                             coordinate_table.append(row);
                         });
