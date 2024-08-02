@@ -400,12 +400,13 @@
 
         document.getElementById("cmbPetName").addEventListener("change", restartMap);
 
-        $(document).ready(function () {
+        function start() {
             getPets();
             setTimeout("petInfoTable()", 1000);
-            myVar = setInterval("petInfoTable()", 5000);
-        });
+            setInterval("petInfoTable()", 5000);
+        }
 
+        setTimeout("start()", 3000);
     </script>
 
 {% endblock PageContent %}
