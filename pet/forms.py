@@ -6,7 +6,7 @@ from .models import PetModel
 class PetModelForm(forms.ModelForm):
     class Meta:
         model = PetModel
-        fields = ('name', 'type', 'breed', 'age', 'birthdate', 'image', 'serial_number')
+        fields = ('name', 'type', 'breed', 'birthdate', 'image', 'serial_number')
         widgets = {
             'birthdate': forms.DateInput(attrs={'type': 'date', 'onfocus': 'this.showPicker()'}),
             'serial_number': forms.TextInput(attrs={'readonly': 'readonly'}),

@@ -36,7 +36,6 @@ class PetModelFactory(DjangoModelFactory):
 
     name = fake.first_name()
     type = factory.Faker('random_element', elements=('dog', 'cat', 'bird',))
-    age = factory.Faker('random_int', min=0, max=20)
     birthdate = factory.Faker('date_this_century')
     serial_number = factory.Sequence(lambda n: f'PV1100000{n + 1}')
     petowner = factory.SubFactory(PetOwnerFactory)

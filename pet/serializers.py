@@ -9,7 +9,7 @@ class PetSerializer(serializers.ModelSerializer):
     class Meta:
         model = PetModel
         fields = (
-            'name', 'type', 'breed', 'age', 'birthdate', 'image', 'serial_number', 'petowner', 'petowner_username')
+            'name', 'type', 'breed', 'birthdate', 'image', 'serial_number', 'petowner', 'petowner_username')
 
 
 class PetTemperatureSerializer(serializers.ModelSerializer):
