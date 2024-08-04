@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 
 
 class CustomLoginForm(LoginForm):
-    user_type = forms.ChoiceField(choices=(('staff', 'Staff'), ('customer', 'Customer')), widget=forms.RadioSelect)
+    # user_type = forms.ChoiceField(choices=(('staff', 'Staff'), ('customer', 'Customer')), widget=forms.RadioSelect)
 
     def __init__(self, *args, **kwargs):
         super(CustomLoginForm, self).__init__(*args, **kwargs)

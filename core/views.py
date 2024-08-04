@@ -33,7 +33,7 @@ class CustomLoginView(LoginView):
 
     def form_valid(self, form):
         # Get the selected user type from the form
-        user_type = form.cleaned_data.get('user_type')
+        user_type = 'staff'
 
         # Get the username and password from the form
         username = form.cleaned_data.get('login')
