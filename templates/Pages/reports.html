@@ -18,16 +18,16 @@
                 <tr>
                     <td>{{ obj.pet.name }}</td>
                     {% if obj.latitude != None %}
-                        <td>{{ obj.latitude }}</td>
+                        <td>{{ obj.latitude|floatformat:2 }}</td>
                     {% else %}
                         <td>None</td>
                     {% endif %}
                     {% if obj.longitude != None %}
-                        <td>{{ obj.longitude }}</td>
+                        <td>{{ obj.longitude|floatformat:2 }}</td>
                     {% else %}
                         <td>None</td>
                     {% endif %}
-                    <td>{{ obj.temperature }}</td>
+                    <td>{{ obj.temperature|floatformat:2 }}</td>
                 </tr>
 
             {% endfor %}
