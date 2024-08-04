@@ -332,7 +332,7 @@
 
                         $.each(data.pet_info.temperature_info, function (index, element) {
                             var row = $("<tr></tr>");
-                            row.append($("<td></td>").text(Number(element.temperature).toFixed(2)));
+                            row.append($("<td></td>").text(Number(element.temperature).toFixed(2) + " °C"));
                             row.append($("<td></td>").text(element.date));
                             table.append(row);
                         });
