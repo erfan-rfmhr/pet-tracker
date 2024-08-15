@@ -84,9 +84,7 @@
             </div>
             <div class="col">
                 {#            BEGIN THERMOMETER#}
-                <div id="thermometer">
-                    <div id="temperature"></div>
-                </div>
+                <canvas id="temperatureChart"></canvas>
                 {#            END THERMOMETER#}
             </div>
         </div>
@@ -118,24 +116,6 @@
             color: #f55145;
         }
 
-        {#BEGIN THERMOMETER STYLE#}
-        #thermometer {
-            width: 50px;
-            height: 200px;
-            background: #ccc;
-            border-radius: 25px;
-            position: relative;
-        }
-
-        #temperature {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            background: linear-gradient(red, yellow, green);
-            transition: height 0.5s;
-        }
-
-        {#END THERMOMETER STYLE#}
 
         table {
             width: 100%;
@@ -216,6 +196,8 @@
     <script src="https://bernii.github.io/gauge.js/dist/gauge.js"></script>
     <script src="{% static 'assets/js/gauge.js' %}"></script>
     <script src="{% static 'assets/js/myDashboard.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
           integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
@@ -228,6 +210,48 @@
 
 
     <script>
+        // Get the context of the canvas element we want to select
+        var ctx = document.getElementById('temperatureChart').getContext('2d');
+
+        // Create a new Chart object
+        var temperatureChart = new Chart(ctx, {
+            type: 'line', // The type of chart we want to create
+            data: {
+                labels: [], // We'll update these later
+                datasets: [{
+                    label: 'Temperature',
+                    data: [], // We'll update these later
+                    borderColor: 'transparent', // Disable the line by making it transparent
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Color of the dots
+                    pointBackgroundColor: 'rgba(255, 99, 132, 1)', // Color of the dots
+                    pointBorderColor: 'rgba(255, 99, 132, 1)', // Border color of the dots
+                    pointRadius: 5, // Radius of the dots
+                    showLine: false // Disable connecting lines between points
+                }]
+            },
+            options: {
+                animation: false,
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'minute'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        function clearChart() {
+            temperatureChart.data.labels = []; // Clear the labels array
+            temperatureChart.data.datasets.forEach((dataset) => {
+                dataset.data = []; // Clear the data array in each dataset
+            });
+            temperatureChart.update(); // Update the chart to reflect the changes
+        }
         function getTopTemperature() {
             var table = document.getElementById('petInfoTable');
             if (table.rows.length > 1) {
@@ -261,10 +285,6 @@
         }
 
         function setTemperature() {
-            var temp = getTopTemperature();
-            var thermometer = document.getElementById('temperature');
-            var newHeight = temp + "px";
-            thermometer.style.height = newHeight;
         }
 
         var map; // Declare map variable outside the function, so it can be accessed by other functions
@@ -332,13 +352,39 @@
                         table.append(headers);
                         var body = $("<tbody></tbody>");
                         table.append(body);
-
+                        {#make an array for temperature data#}
+                        var newTemperatureData = [];
                         $.each(data.pet_info.temperature_info, function (index, element) {
                             var row = $("<tr></tr>");
                             row.append($("<td></td>").text(Number(element.temperature).toFixed(2) + " °C"));
+                            newTemperatureData.push({
+                                time: element.time.split('.')[0],
+                                temperature: element.temperature
+                            });
                             row.append($("<td></td>").text(element.time.split('.')[0]));
                             table.append(row);
                         });
+                        clearChart();
+                        // Assume newTemperatureData is an array of { time: 'HH:MM', temperature: number } objects
+                        newTemperatureData.forEach(function (data) {
+                            // Assuming data.time is a string like '18:30:23'
+                            let currentDate = new Date(); // Get today's date
+
+                            // Split the time string into components
+                            let timeParts = data.time.split(':');
+                            let hours = parseInt(timeParts[0], 10);
+                            let minutes = parseInt(timeParts[1], 10);
+                            let seconds = parseInt(timeParts[2], 10);
+
+                            // Create a new Date object with today's date and the specific time
+                            let fullDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), hours, minutes, seconds);
+
+                            // Add the full date-time and temperature to the chart
+                            temperatureChart.data.labels.push(fullDate);
+                            temperatureChart.data.datasets[0].data.push(data.temperature);
+                        });
+                        temperatureChart.update();
+
 
                         var coordinate_table = $("#petCoordinateTable");
                         coordinate_table.empty();  // Clear the table
@@ -357,7 +403,8 @@
                             row.append($("<td></td>").text(element.time.split('.')[0]));
                             coordinate_table.append(row);
                         });
-                        setTemperature();
+                        {#setTemperature();#}
+
                         markMap();
                         var coor_table = document.getElementById('petCoordinateTable');
                     } else {
