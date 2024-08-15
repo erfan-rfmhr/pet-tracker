@@ -53,10 +53,38 @@
                                         <td>{{ pet.serial_number }}</td>
                                         <td>{{ pet.petowner.user.username }}</td>
                                         <td>
-                                            <button class="btn btn-sm  DeletT" title="Delete"
-                                                    onclick="delete_pet_btn({{ pet.id }}, '{{ pet.name }}')">
+                                            <button type="button" class="btn btn-sm" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteModal{{ pet.id }}">
                                                 <i class="fa fa-remove fa-2x text-danger"></i>
                                             </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="deleteModal{{ pet.id }}" tabindex="-1"
+                                                 aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="deleteModalLabel">Delete
+                                                                pet</h1>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Delete "{{ pet.name }}"?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                    onclick="delete_pet_btn({{ pet.id }}, '{{ pet.name }}')">
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Modal -->
+
                                             <a href="{% url 'pet:update' pet.id %}"
                                                class="btn btn-sm  EditT" title="Edit">
                                                 <i class="fa fa-edit fa-2x"></i>
