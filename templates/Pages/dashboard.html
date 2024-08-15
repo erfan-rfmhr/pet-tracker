@@ -25,49 +25,50 @@
 
 
         <div class="row justify-content-center">
-
-
-            <div class="col-md-3 col-12">
-
+            <div class="col-md-3 col-sm-auto">
                 <div class="form-group">
                     <label for="cmbPetOwnerName">Pet Owner</label>
                     <div class="input-group">
-
                         <select class="form-control select2 curve" id="cmbPetOwnerName" style="width:100% !important">
-
                             {% for petowner in petowners %}
                                 <option value={{ petowner.user_id }}>{{ petowner.user.get_full_name }}</option>
                             {% endfor %}
-
                         </select>
-
                     </div><!-- /.input-group -->
                 </div><!-- /.form-group -->
             </div>
 
-            <div class="col-md-3 col-12">
-
+            <div class="col-md-3 col-sm-auto">
                 <div class="form-group">
                     <label for="cmbPetName">Pet</label>
-                    <div class="input-group"><select class="form-control select2 curve" id="cmbPetName"
-                                                     style="width:100% !important">
-                        {#                        {% for pet in pets %}#}
-                        {#                            <option value={{ pet.id }} data-owner-id={{ pet.petowner.user_id }}>{{ pet.name }}</option>#}
-                        {#                        {% endfor %}#}
-                    </select>
-
+                    <div class="input-group">
+                        <select class="form-control select2 curve" id="cmbPetName" style="width:100% !important">
+                            <!-- Options here -->
+                        </select>
                     </div><!-- /.input-group -->
                 </div><!-- /.form-group -->
             </div>
 
-            <div class="col-md-4 col-12">
+            <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                    <label for="dateInput">Date:</label>
+                    <div class="input-group date" id="dash-date">
+                        <input id="dateInput" type="date" onfocus='this.showPicker()' class="form-control" name="date"
+                               placeholder="Date">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div><!-- /.input-group -->
+                </div><!-- /.form-group -->
+            </div>
+
+            <div class="col-md-3 col-sm-auto">
                 <button id="btnGo" type="button" class="btn btn-success btn-curve mt-md-4" onclick="petInfoTable()">
-                    <i class="icon-check "></i>
+                    <i class="icon-check"></i>
                     GO
                 </button>
             </div>
-
-        </div><!-- /.modal -->
+        </div>
 
         <div id="temperatureInfoRow" class="row ">
             <div class="col">
