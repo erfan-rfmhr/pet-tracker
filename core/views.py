@@ -146,3 +146,7 @@ def export_csv(request):
         ])
 
     return response
+
+class petgpt(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'Pages/petgpt.html')

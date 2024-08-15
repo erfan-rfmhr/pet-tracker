@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Chat Interface</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .card {
+            font-size: 1.2rem; /* Increase the size of text */
+        }
+        .chat-box {
+            height: 500px; /* Increased height */
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 15px; /* Increased padding */
+        }
+        .message {
+            margin-bottom: 20px; /* Increased margin */
+        }
+        .message.bot .message-content {
+            background-color: #e1f5fe;
+            color: #0277bd;
+            max-width: 60%;
+            word-wrap: break-word;
+        }
+        .message.user .message-content {
+            background-color: #007bff;
+            color: white;
+            max-width: 60%;
+            margin-left: auto; /* Align to the right */
+            word-wrap: break-word;
+        }
+        .input-area {
+            border-top: 1px solid #ddd;
+            padding: 15px; /* Increased padding */
+        }
+        #chat-input {
+            font-size: 1.2rem; /* Larger input text */
+        }
+        #send-button {
+            font-size: 1.2rem; /* Larger button text */
+            padding: 10px 20px; /* Larger button size */
+        }
+        .spinner-border {
+            width: 2rem; /* Larger spinner */
+            height: 2rem; /* Larger spinner */
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card w-100" style="max-width: 600px;">
+            <div class="card-header text-white bg-primary">
+                Chat Interface
+            </div>
+            <div class="card-body chat-box overflow-auto" id="chat-box">
+                <!-- Messages will be appended here -->
+            </div>
+            <div class="card-footer input-area d-flex">
+                <input type="text" id="chat-input" class="form-control" placeholder="Type your message...">
+                <button id="send-button" class="btn btn-primary ml-3">Send</button>
+                <!-- Loading spinner -->
+                <div id="loading-spinner" class="spinner-border text-primary ml-3" role="status" style="display: none;">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        $(document).ready(function() {
+            $('#send-button').click(function() {
+                const inputField = $('#chat-input');
+                const userMessage = inputField.val();
+                
+                if (userMessage.trim() === '') {
+                    return;
+                }
+                
+                // Display the user's message in the chat
+                appendMessage('user', userMessage);
+                inputField.val('');
+
+                // Lock the input and show the loading spinner
+                toggleLoadingState(true);
+
+                // Prepare the request body
+                const requestBody = {
+                    model: "gemma2:2b",
+                    prompt: userMessage,
+                    stream: false
+                };
+
+                // Make the API call using AJAX
+                $.ajax({
+                    url: 'http://178.128.205.125:11434/api/generate',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(requestBody),
+                    success: function(data) {
+                        // Display the bot's response in the chat
+                        const botMessage = data.response || "Error: No response received";
+                        appendMessage('bot', botMessage);
+                    },
+                    error: function(error) {
+                        appendMessage('bot', 'Error: Unable to contact the server');
+                        console.error('Error:', error);
+                    },
+                    complete: function() {
+                        // Unlock the input and hide the loading spinner
+                        toggleLoadingState(false);
+                    }
+                });
+            });
+
+            function appendMessage(sender, message) {
+                const chatBox = $('#chat-box');
+                const messageElement = $('<div>').addClass('message').addClass(sender);
+
+                const messageContent = $('<div>').addClass('message-content p-3 rounded d-inline-block');
+
+                // Convert Markdown to HTML
+                messageContent.html(marked.parse(message)); // Use marked.parse() for better compatibility
+
+                if (sender === 'bot') {
+                    messageElement.addClass('text-left');
+                    messageContent.addClass('bg-light text-primary');
+                } else if (sender === 'user') {
+                    messageElement.addClass('text-right');
+                    messageContent.addClass('bg-primary text-white');
+                }
+
+                messageElement.append(messageContent);
+                chatBox.append(messageElement);
+                chatBox.scrollTop(chatBox[0].scrollHeight); // Scroll to the bottom
+            }
+
+            function toggleLoadingState(isLoading) {
+                const inputField = $('#chat-input');
+                const sendButton = $('#send-button');
+                const loadingSpinner = $('#loading-spinner');
+
+                if (isLoading) {
+                    inputField.prop('disabled', true);
+                    sendButton.prop('disabled', true);
+                    loadingSpinner.show();
+                } else {
+                    inputField.prop('disabled', false);
+                    sendButton.prop('disabled', false);
+                    loadingSpinner.hide();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

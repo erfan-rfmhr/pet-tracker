@@ -11,4 +11,6 @@ urlpatterns = [
     path('dashboard/pets/', views.GetPetsView.as_view(), name='dashboard_pets'),
     path('reports/', views.GetReportsView.as_view(), name='reports'),
     path('export-csv/', views.export_csv, name='export_csv'),
+    path('petgpt/', views.petgpt.as_view(), name='petgpt'),
+
 ]
