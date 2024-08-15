@@ -99,22 +99,16 @@
                 // Lock the input and show the loading spinner
                 toggleLoadingState(true);
 
-                // Prepare the request body
-                const requestBody = {
-                    model: "gemma2:2b",
-                    prompt: userMessage,
-                    stream: false
-                };
+                // Prepare the request URL
+                const apiUrl = `https://api3.haji-api.ir/majid/llama3?p=${encodeURIComponent(userMessage)}&license=ei4eD8xBk3FEwJA7umAYFrGY14q81Ca1bfbLoTGkrkSwlu12ZYXg4y`;
 
                 // Make the API call using AJAX
                 $.ajax({
-                    url: 'http://178.128.205.125:11434/api/generate',
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(requestBody),
+                    url: apiUrl,
+                    method: 'GET',
                     success: function(data) {
                         // Display the bot's response in the chat
-                        const botMessage = data.response || "Error: No response received";
+                        const botMessage = data.result || "Error: No response received";
                         appendMessage('bot', botMessage);
                     },
                     error: function(error) {
