@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 
 from allauth.account.views import LoginView
 from django.contrib.auth import authenticate, login, get_user_model
@@ -80,14 +81,18 @@ class PetTemperatureDashboardView(LoginRequiredMixin, generic.ListView):
 class GetPetInfoView(View):
     def get(self, request, *args, **kwargs):
         pet_id = request.GET.get('pet_id', None)
+        date = request.GET.get('date', None)
+        date = datetime.strptime(date, "%Y-%m-%d").date()
         if pet_id is None:
             data = {'success': False}
         else:
             pet_temperature_info = list(
-                PetTemperatureModel.objects.filter(pet_id=pet_id).values('temperature', 'date').order_by('-date',
+                PetTemperatureModel.objects.filter(pet_id=pet_id, date=date).values('temperature', 'time').order_by(
+                    '-date',
                                                                                                          '-time')[:10])
             pet_coordinate_info = list(
-                PetCoordinateModel.objects.filter(pet_id=pet_id).values('latitude', 'longitude', 'date').order_by(
+                PetCoordinateModel.objects.filter(pet_id=pet_id, date=date).values('latitude', 'longitude',
+                                                                                   'time').order_by(
                     '-date', '-time')[:10])
             pet_info = {'temperature_info': pet_temperature_info, 'coordinate_info': pet_coordinate_info}
             data = {'success': True, 'pet_info': pet_info}

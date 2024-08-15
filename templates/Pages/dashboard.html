@@ -306,10 +306,12 @@
 
         function petInfoTable() {
             var petId = $("#cmbPetName").val();
+            var dashDate = $("#dateInput").val()
             $.ajax({
                 url: '/dashboard/info/',
                 data: {
-                    'pet_id': petId
+                    'pet_id': petId,
+                    'date': dashDate
                 },
                 dataType: 'json',
                 success: function (data) {
@@ -326,7 +328,7 @@
                         var table = $("#petInfoTable");
                         table.empty();  // Clear the table
                         var headers = $("<thead></thead>");
-                        headers.append("<tr><th>Temperature</th><th>Date</th></tr>")
+                        headers.append("<tr><th>Temperature</th><th>Time</th></tr>")
                         table.append(headers);
                         var body = $("<tbody></tbody>");
                         table.append(body);
@@ -334,14 +336,14 @@
                         $.each(data.pet_info.temperature_info, function (index, element) {
                             var row = $("<tr></tr>");
                             row.append($("<td></td>").text(Number(element.temperature).toFixed(2) + " °C"));
-                            row.append($("<td></td>").text(element.date));
+                            row.append($("<td></td>").text(element.time.split('.')[0]));
                             table.append(row);
                         });
 
                         var coordinate_table = $("#petCoordinateTable");
                         coordinate_table.empty();  // Clear the table
                         var headers = $("<thead></thead>");
-                        headers.append("<tr><th>Longitude</th><th>Latitude</th><th>Date</th></tr>")
+                        headers.append("<tr><th>Longitude</th><th>Latitude</th><th>Time</th></tr>")
                         coordinate_table.append(headers);
                         var body = $("<tbody></tbody>");
                         coordinate_table.append(body);
@@ -352,7 +354,7 @@
                             let latitude = parseFloat(Number(element.latitude).toFixed(2))
                             row.append($("<td></td>").text(longitude));
                             row.append($("<td></td>").text(latitude));
-                            row.append($("<td></td>").text(element.date));
+                            row.append($("<td></td>").text(element.time.split('.')[0]));
                             coordinate_table.append(row);
                         });
                         setTemperature();
@@ -409,6 +411,13 @@
             setInterval("petInfoTable()", 5000);
         }
 
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var date = new Date();
+            var day = ("0" + date.getDate()).slice(-2);
+            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+            var today = date.getFullYear() + "-" + (month) + "-" + (day);
+            document.getElementById("dateInput").value = today;
+        });
         setTimeout("start()", 3000);
     </script>
 
